@@ -1,4 +1,4 @@
-## Unreleased
+## v0.0.1 (2021-01-26)
 ### Added
 - Create `release_assistant` tool to aid with releasing/publishing gems (particularly via GitHub)
 - Require confirmation before releasing
