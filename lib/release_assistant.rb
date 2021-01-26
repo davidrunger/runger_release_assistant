@@ -47,6 +47,7 @@ class ReleaseAssistant
     bundle_install
     commit_changes
     execute_source_control_push
+    switch_to_original_branch
   end
 
   private
@@ -103,6 +104,10 @@ class ReleaseAssistant
   def execute_source_control_push
     execute_command(%(git tag -m "Version #{next_version}" v#{next_version}))
     execute_command('git push')
+  end
+
+  def switch_to_original_branch
+    execute_command("git checkout #{@initial_branch}")
   end
 
   def system_output(command)
