@@ -1,3 +1,7 @@
+## Unreleased
+### Added
+- Bump to next alpha version after creating release
+
 ## v0.0.3 (2021-01-26)
 - Ensure in PR CI runs that the current version contains "alpha" & that there's no git diff (e.g.
   due to failing to run `bundle` after updating the version)

@@ -43,11 +43,18 @@ class ReleaseAssistant
     verify_repository_cleanliness
     remember_initial_branch
     switch_to_master
+
     update_changelog_for_release
-    update_version_file
+    update_version_file(next_version)
     bundle_install
-    commit_changes
+    commit_changes(message: "Prepare to release v#{next_version}")
     create_tag
+
+    update_changelog_for_alpha
+    update_version_file(alpha_version_after_next_version)
+    bundle_install
+    commit_changes(message: "Bump to v#{alpha_version_after_next_version}")
+
     push_to_git_remote
     switch_to_initial_branch
   end
@@ -94,13 +101,23 @@ class ReleaseAssistant
     write_file(changelog_path, new_changelog_content)
   end
 
-  def update_version_file
+  def update_changelog_for_alpha
+    old_changelog_content = file_contents(changelog_path)
+    write_file(changelog_path, <<~NEW_CHANGELOG_CONTENT)
+      ## Unreleased
+      [no unreleased changes yet]
+
+      #{old_changelog_content.rstrip}
+    NEW_CHANGELOG_CONTENT
+  end
+
+  def update_version_file(new_version)
     old_version_file_content = file_contents(version_file_path)
     new_version_file_content =
       old_version_file_content.
         gsub(
           /(VERSION += +['"]).*(['"])/,
-          "\\1#{next_version}\\2",
+          "\\1#{new_version}\\2",
         )
     write_file(version_file_path, new_version_file_content)
   end
@@ -109,9 +126,9 @@ class ReleaseAssistant
     execute_command('bundle install')
   end
 
-  def commit_changes
+  def commit_changes(message:)
     execute_command("git add CHANGELOG.md Gemfile.lock #{version_file_path}")
-    execute_command("git commit -m 'Prepare to release v#{next_version}'")
+    execute_command("git commit -m '#{message}'")
   end
 
   def create_tag
@@ -176,6 +193,12 @@ class ReleaseAssistant
   memoize \
   def next_version
     version_calculator.increment_for(@options[:type])
+  end
+
+  def alpha_version_after_next_version
+    next_patch_version =
+      ReleaseAssistant::VersionCalculator.new(current_version: next_version).increment_for('patch')
+    "#{next_patch_version}.alpha"
   end
 
   memoize \
