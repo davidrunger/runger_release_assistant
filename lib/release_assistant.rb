@@ -38,10 +38,7 @@ class ReleaseAssistant
   end
 
   def run_release
-    logger.debug("You are running the release process with options #{@options.to_h}!")
-    logger.debug("Current version is #{current_version}")
-    logger.debug("Next version will be #{next_version}")
-
+    print_release_plan
     verify_repository_cleanliness
     remember_initial_branch
     switch_to_master
@@ -53,6 +50,12 @@ class ReleaseAssistant
   end
 
   private
+
+  def print_release_plan
+    logger.debug("You are running the release process with options #{@options.to_h}!")
+    logger.debug("Current version is #{current_version}")
+    logger.debug("Next version will be #{next_version}")
+  end
 
   def verify_repository_cleanliness
     execute_command('bundle exec rake release:guard_clean')
