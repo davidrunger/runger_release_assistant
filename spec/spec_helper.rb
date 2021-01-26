@@ -28,13 +28,6 @@ RSpec.configure do |config|
     # rubocop:disable RSpec/AnyInstance
     allow_any_instance_of(ReleaseAssistant::GitHelpers).to receive(:repo).and_return('testuser/testrepo')
     # rubocop:enable RSpec/AnyInstance
-
-    # pretend that `.release_assistant.yml` doesn't exist in tests
-    # rubocop:disable RSpec/AnyInstance
-    allow_any_instance_of(ReleaseAssistant::ConfigFileOptions).
-      to receive(:config_file_exists?).
-      and_return(false)
-    # rubocop:enable RSpec/AnyInstance
   end
 end
 

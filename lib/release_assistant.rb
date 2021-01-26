@@ -38,28 +38,18 @@ class ReleaseAssistant
   end
 
   def run_release
-    if config_file_options.config_file_exists?
-      logger.debug("You are running the release process with options #{@options.to_h}!")
-      logger.debug("Current version is #{current_version}")
-      logger.debug("Next version will be #{next_version}")
+    logger.debug("You are running the release process with options #{@options.to_h}!")
+    logger.debug("Current version is #{current_version}")
+    logger.debug("Next version will be #{next_version}")
 
-      verify_repository_cleanliness
-      remember_initial_branch
-      switch_to_master
-      update_changelog_for_release
-      update_version_file
-      bundle_install
-      commit_changes
-      execute_source_control_push
-    else
-      logger.warn(<<~WARNING.rstrip.yellow)
-        WARNING: You have not created a `.release_assistant.yml` file yet!
-        Therefore, release_assistant will do nothing and will exit.
-      WARNING
-      logger.info(<<~SOLUTION.rstrip.blue.bold)
-        TIP: Execute `release --init` to create a `.release_assistant.yml` file.
-      SOLUTION
-    end
+    verify_repository_cleanliness
+    remember_initial_branch
+    switch_to_master
+    update_changelog_for_release
+    update_version_file
+    bundle_install
+    commit_changes
+    execute_source_control_push
   end
 
   private
@@ -164,10 +154,5 @@ class ReleaseAssistant
 
   def logger
     ReleaseAssistant.logger
-  end
-
-  memoize \
-  def config_file_options
-    ReleaseAssistant::ConfigFileOptions.new
   end
 end
