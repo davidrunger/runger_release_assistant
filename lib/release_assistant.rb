@@ -39,6 +39,7 @@ class ReleaseAssistant
 
   def run_release
     print_release_plan
+    confirm_release_plan
     verify_repository_cleanliness
     remember_initial_branch
     switch_to_master
@@ -53,9 +54,19 @@ class ReleaseAssistant
   private
 
   def print_release_plan
-    logger.debug("You are running the release process with options #{@options.to_h}!")
-    logger.debug("Current version is #{current_version}")
-    logger.debug("Next version will be #{next_version}")
+    logger.info("You are running the release process with options #{@options.to_h}!")
+    logger.info("Current version is #{current_version}")
+    logger.info("Next version will be #{next_version}")
+  end
+
+  def confirm_release_plan
+    puts('Does that sound good? [y]n')
+    response = gets.chomp
+
+    if response.downcase == 'n' # rubocop:disable Performance/Casecmp
+      puts('Okay, aborting.')
+      exit(1)
+    end
   end
 
   def verify_repository_cleanliness
