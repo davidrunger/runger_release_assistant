@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    release_assistant (0.0.3.alpha)
+    release_assistant (0.0.3)
       activesupport (~> 6.0)
       colorize (~> 0.8)
       memoist (~> 0.16)
