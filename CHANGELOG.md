@@ -2,6 +2,7 @@
 ### Added
 - Create `release_assistant` tool to aid with releasing/publishing gems (particularly via GitHub)
 - Require confirmation before releasing
+- Restore original state (current git branch, file contents) when aborting
 
 ### Fixed
 - Read confirmation from `STDIN`
