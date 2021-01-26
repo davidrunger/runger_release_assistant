@@ -1,3 +1,7 @@
+## Unreleased
+- Ensure in PR CI runs that the current version contains "alpha" & that there's no git diff (e.g.
+  due to failing to run `bundle` after updating the version)
+
 ## v0.0.2 (2021-01-26)
 ### Fixed
 - Push git tags when releasing
