@@ -59,7 +59,8 @@ class ReleaseAssistant
   end
 
   def verify_repository_cleanliness
-    execute_command('bundle exec rake release:guard_clean')
+    fail 'There are unstaged changes!' if !system('git diff --exit-code')
+    fail 'There are staged changes!' if !system('git diff-index --quiet --cached HEAD')
   end
 
   def remember_initial_branch
