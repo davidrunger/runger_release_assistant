@@ -42,4 +42,4 @@ options =
 
 ReleaseAssistant.logger.level = Logger::DEBUG if options.debug?
 
-ReleaseAssistant.new.run_release(options)
+ReleaseAssistant.new(options).run_release
