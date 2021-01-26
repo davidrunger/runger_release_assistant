@@ -15,12 +15,23 @@ class ReleaseAssistant::VersionCalculator
       when 'minor'
         [major, minor + 1, 0]
       when 'patch'
-        [major, minor, patch + 1]
+        if modifier.present?
+          # e.g. going from `0.3.3.alpha` to `0.3.3`
+          [major, minor, patch]
+        else
+          # e.g. going from `0.3.3` to `0.3.4`
+          [major, minor, patch + 1]
+        end
       end
     new_parts.map(&:to_s).join('.')
   end
 
   private
+
+  memoize \
+  def modifier
+    @current_version.split('.')[3]
+  end
 
   memoize \
   def parts

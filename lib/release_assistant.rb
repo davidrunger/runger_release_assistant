@@ -39,9 +39,18 @@ class ReleaseAssistant
 
   def run_release
     if config_file_options.config_file_exists?
-      logger.info("YOU ARE RUNNING THE RELEASE PROCESS WITH OPTIONS #{@options.to_h}!")
-      logger.info("CURRENT VERSION IS #{current_version}")
-      logger.info("NEXT VERSION WILL BE #{next_version}")
+      logger.debug("You are running the release process with options #{@options.to_h}!")
+      logger.debug("Current version is #{current_version}")
+      logger.debug("Next version will be #{next_version}")
+
+      verify_repository_cleanliness
+      remember_initial_branch
+      switch_to_master
+      update_changelog_for_release
+      update_version_file
+      bundle_install
+      commit_changes
+      execute_source_control_push
     else
       logger.warn(<<~WARNING.rstrip.yellow)
         WARNING: You have not created a `.release_assistant.yml` file yet!
@@ -55,15 +64,95 @@ class ReleaseAssistant
 
   private
 
+  def verify_repository_cleanliness
+    execute_command('bundle exec rake release:guard_clean')
+  end
+
+  def remember_initial_branch
+    @initial_branch = system_output('git branch --show-current')
+  end
+
+  def switch_to_master
+    execute_command('git checkout master')
+  end
+
+  def update_changelog_for_release
+    old_changelog_content = file_contents(changelog_path)
+    new_changelog_content =
+      old_changelog_content.
+        gsub(
+          /(#+) Unreleased/,
+          "\1 v#{next_version} (#{Date.current.iso8601})",
+        )
+    write_file(changelog_path, new_changelog_content)
+  end
+
+  def update_version_file
+    old_version_file_content = file_contents(version_file_path)
+    new_version_file_content =
+      old_version_file_content.
+        gsub(
+          /(VERSION += +['"])(.*)(['"])/,
+          "\1#{next_version}\2",
+        )
+    write_file(version_file_path, new_version_file_content)
+  end
+
+  def bundle_install
+    execute_command('bundle install')
+  end
+
+  def commit_changes
+    execute_command("git add CHANGELOG.md Gemfile.lock #{version_file_path}")
+    execute_command("git commit -m 'Prepare to release v#{next_version}'")
+  end
+
+  def execute_source_control_push
+    execute_command(%(git tag -m "Version #{next_version}" v#{next_version}))
+    execute_command('git push')
+  end
+
+  def system_output(command)
+    logger.debug("Getting output from `#{command}`")
+    `#{command}`.rstrip
+  end
+
+  def execute_command(command)
+    logger.debug("Running system command `#{command}`")
+    system(command)
+  end
+
+  def file_path(file_name)
+    system_output("find . -type f -name #{file_name}").delete_prefix('./')
+  end
+
+  def file_contents(file_path)
+    File.read("#{ENV['PWD']}/#{file_path}")
+  end
+
+  def write_file(file_path, file_contents)
+    File.write("#{ENV['PWD']}/#{file_path}", file_contents)
+  end
+
+  memoize \
+  def version_file_path
+    file_path('version.rb')
+  end
+
+  memoize \
+  def changelog_path
+    file_path('CHANGELOG.md')
+  end
+
   memoize \
   def current_version
-    version_file_path = `find . -type f -name version.rb`.delete_prefix('./').rstrip
-    File.read("#{ENV['PWD']}/#{version_file_path}").
+    file_contents(version_file_path).
       match(/VERSION += +['"](?<version>.*)['"]/)&.
       named_captures&.to_h&.
       dig('version')
   end
 
+  memoize \
   def next_version
     version_calculator.increment_for(@options[:type])
   end
