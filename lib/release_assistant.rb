@@ -61,7 +61,7 @@ class ReleaseAssistant
 
   def confirm_release_plan
     puts('Does that sound good? [y]n')
-    response = gets.chomp
+    response = $stdin.gets.chomp
 
     if response.downcase == 'n' # rubocop:disable Performance/Casecmp
       puts('Okay, aborting.')
