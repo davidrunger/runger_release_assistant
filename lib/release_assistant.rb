@@ -47,7 +47,8 @@ class ReleaseAssistant
     update_version_file
     bundle_install
     commit_changes
-    execute_source_control_push
+    create_tag
+    push_to_git_remote
     switch_to_initial_branch
   end
 
@@ -113,9 +114,13 @@ class ReleaseAssistant
     execute_command("git commit -m 'Prepare to release v#{next_version}'")
   end
 
-  def execute_source_control_push
+  def create_tag
     execute_command(%(git tag -m "Version #{next_version}" v#{next_version}))
+  end
+
+  def push_to_git_remote
     execute_command('git push')
+    execute_command('git push --tags')
   end
 
   def switch_to_initial_branch
