@@ -22,13 +22,6 @@ RSpec.configure do |config|
     # https://github.com/rspec/rspec-expectations/issues/ 991#issuecomment-302863645
     RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 2_000
   end
-
-  config.before(:each) do
-    # stub this method in all tests because otherwise it calls `git remote ...` which is really slow
-    # rubocop:disable RSpec/AnyInstance
-    allow_any_instance_of(ReleaseAssistant::GitHelpers).to receive(:repo).and_return('testuser/testrepo')
-    # rubocop:enable RSpec/AnyInstance
-  end
 end
 
 def stubbed_slop_options(arguments_string)
