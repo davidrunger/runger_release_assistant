@@ -13,21 +13,11 @@ options =
 
       Example:
         release
-        release --init
         release --type minor
         release -t patch
     BANNER
 
     ReleaseAssistant.define_slop_options(o)
-
-    o.on('-i', '--init', 'create a `.release_assistant.yml` config file') do
-      File.write('.release_assistant.yml', <<~CONFIG_FILE_TEMPLATE)
-        github: true
-        rubygems: false
-      CONFIG_FILE_TEMPLATE
-      puts('Created `.release_assistant.yml` file!'.green.bold)
-      exit
-    end
 
     o.on('-v', '--version', 'print the version') do
       puts(ReleaseAssistant::VERSION)

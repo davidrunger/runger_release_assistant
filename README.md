@@ -62,29 +62,13 @@ Usage: release [options]
 
 Example:
   release
-  release --init
   release --type minor
   release -t patch
 
     -t, --type     Release type (major, minor, or patch)
     --debug        print debugging info
-    -i, --init     create a `.release_assistant.yml` config file
     -v, --version  print the version
     -h, --help     print this help information
-```
-
-## `.release_assistant.yml` config file
-You must create a `.release_assistant.yml` file in any repository where you want to use
-`release_assistant`.
-
-**This file can be created automatically by executing `release --init`** in the relevant
-repo/directory.
-
-#### Example `.release_assistant.yml` config file
-
-```yaml
-github: true
-rubygems: false
 ```
 
 ## Development

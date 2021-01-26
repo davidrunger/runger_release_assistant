@@ -5,3 +5,6 @@
 
 ### Fixed
 - Read confirmation from `STDIN`
+
+### Removed
+- Remove lingering code/documentation related to `.release_assistant.yml` config file
