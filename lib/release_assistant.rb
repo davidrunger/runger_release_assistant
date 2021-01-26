@@ -88,7 +88,7 @@ class ReleaseAssistant
       old_changelog_content.
         gsub(
           /(#+) Unreleased/,
-          "\1 v#{next_version} (#{Date.current.iso8601})",
+          "\\1 v#{next_version} (#{Date.current.iso8601})",
         )
     write_file(changelog_path, new_changelog_content)
   end
@@ -98,8 +98,8 @@ class ReleaseAssistant
     new_version_file_content =
       old_version_file_content.
         gsub(
-          /(VERSION += +['"])(.*)(['"])/,
-          "\1#{next_version}\2",
+          /(VERSION += +['"]).*(['"])/,
+          "\\1#{next_version}\\2",
         )
     write_file(version_file_path, new_version_file_content)
   end
