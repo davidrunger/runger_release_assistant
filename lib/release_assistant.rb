@@ -48,7 +48,7 @@ class ReleaseAssistant
     bundle_install
     commit_changes
     execute_source_control_push
-    switch_to_original_branch
+    switch_to_initial_branch
   end
 
   private
@@ -60,12 +60,12 @@ class ReleaseAssistant
   end
 
   def confirm_release_plan
-    puts('Does that sound good? [y]n')
+    puts('Does that look good? [y]n')
     response = $stdin.gets.chomp
 
     if response.downcase == 'n' # rubocop:disable Performance/Casecmp
       puts('Okay, aborting.')
-      exit(1)
+      restore_and_abort
     end
   end
 
@@ -118,7 +118,7 @@ class ReleaseAssistant
     execute_command('git push')
   end
 
-  def switch_to_original_branch
+  def switch_to_initial_branch
     execute_command("git checkout #{@initial_branch}")
   end
 
@@ -130,6 +130,12 @@ class ReleaseAssistant
   def execute_command(command)
     logger.debug("Running system command `#{command}`")
     system(command)
+  end
+
+  def restore_and_abort
+    switch_to_initial_branch if @initial_branch
+    execute_command("git checkout Gemfile.lock #{changelog_path} #{version_file_path}")
+    exit(1)
   end
 
   def file_path(file_name)
