@@ -1,4 +1,4 @@
-## Unreleased
+## v0.0.2 (2021-01-26)
 ### Fixed
 - Push git tags when releasing
 
