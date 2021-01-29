@@ -1,4 +1,4 @@
-## Unreleased
+## v0.2.0 (2021-01-28)
 ### Changed
 - Leave version numbers unchanged if bumping from version w/ modifier (e.g. `2.0.0.alpha` to `2.0.0`
   or `0.4.0.alpha` to `0.4.0`)
