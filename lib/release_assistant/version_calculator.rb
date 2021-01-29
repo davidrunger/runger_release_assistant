@@ -7,13 +7,26 @@ class ReleaseAssistant::VersionCalculator
     @current_version = current_version
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def increment_for(type)
     new_parts =
       case type
       when 'major'
-        [major + 1, 0, 0]
+        if modifier.present? && (minor == 0) && (patch == 0)
+          # e.g. going from `2.0.0.alpha` to `2.0.0`
+          [major, minor, patch]
+        else
+          # e.g. going from `2.3.4` to `3.0.0`
+          [major + 1, 0, 0]
+        end
       when 'minor'
-        [major, minor + 1, 0]
+        if modifier.present? && (patch == 0)
+          # e.g. going from `0.4.0.alpha` to `0.4.0`
+          [major, minor, patch]
+        else
+          # e.g. going from `0.3.3` to `0.4.0`
+          [major, minor + 1, 0]
+        end
       when 'patch'
         if modifier.present?
           # e.g. going from `0.3.3.alpha` to `0.3.3`
@@ -25,6 +38,7 @@ class ReleaseAssistant::VersionCalculator
       end
     new_parts.map(&:to_s).join('.')
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 

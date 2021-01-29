@@ -1,5 +1,7 @@
 ## Unreleased
-[no unreleased changes yet]
+### Changed
+- Leave version numbers unchanged if bumping from version w/ modifier (e.g. `2.0.0.alpha` to `2.0.0`
+  or `0.4.0.alpha` to `0.4.0`)
 
 ## v0.1.0 (2021-01-26)
 ### Added
