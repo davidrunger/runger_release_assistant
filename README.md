@@ -2,7 +2,30 @@
 
 # `release_assistant`
 
-This is a CLI tool that I use to help automate the process of releasing a new version of a gem.
+This is a CLI tool that helps to automate the process of releasing new versions of a gem via
+git/GitHub and (optionally) via RubyGems.
+
+<!--ts-->
+   * [release_assistant](#release_assistant)
+      * [Dependencies](#dependencies)
+      * [Installation](#installation)
+         * [Global installation](#global-installation)
+         * [Installation in a specific project](#installation-in-a-specific-project)
+            * [Create a binstub](#create-a-binstub)
+      * [Basic usage](#basic-usage)
+         * [Available options and examples](#available-options-and-examples)
+      * [Using with RubyGems](#using-with-rubygems)
+      * [Development](#development)
+      * [Contributing](#contributing)
+      * [License](#license)
+
+<!-- Added by: david, at: Mon Feb  1 20:16:03 PST 2021 -->
+
+<!--te-->
+
+## Dependencies
+
+This gem assumes that you have `git` installed.
 
 ## Installation
 
@@ -41,17 +64,27 @@ bundle binstubs release_assistant
 
 Then, you can execute `bin/release`.
 
-## Dependencies
-
-This gem assumes that you have `git` installed.
-
 ## Basic usage
+
+If installed globally:
 
 ```
 $ release [options]
 ```
 
-#### Available options and examples
+If installed via bundler without a binstub:
+
+```
+$ bundle exec release [options]
+```
+
+If installed via bundler with a binstub:
+
+```
+$ bin/release [options]
+```
+
+### Available options and examples
 
 After installing, execute `release --help` to see usage examples and available options.
 
@@ -65,11 +98,20 @@ Example:
   release --type minor
   release -t patch
 
-    -t, --type     Release type (major, minor, or patch)
-    --debug        print debugging info
-    -v, --version  print the version
-    -h, --help     print this help information
+    -t, --type                Release type (major, minor, or patch)
+    -d, --debug               print debugging info
+    -s, --show-system-output  show system output
+    -i, --init                create a `.release_assistant.yml` config file
+    -v, --version             print the version
+    -h, --help                print this help information
 ```
+
+## Using with RubyGems
+
+By default, `release_assistant` assumes that you only want to "release" your gem via GitHub. If
+you'd also like to release the gem via RubyGems, then create a `.release_assistant.yml` file by
+executing `release --init`. Within that file, modify the default `rubygems: false` option to
+`rubygems: true`.
 
 ## Development
 

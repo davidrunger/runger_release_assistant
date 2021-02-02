@@ -18,23 +18,30 @@ Dir["#{File.dirname(__FILE__)}/release_assistant/**/*.rb"].sort.each { |file| re
 class ReleaseAssistant
   extend Memoist
 
+  DEFAULT_OPTIONS = {
+    git: true,
+    rubygems: false,
+  }.freeze
+
   class << self
     def define_slop_options(options)
       options.string('-t', '--type', 'Release type (major, minor, or patch)', default: 'patch')
-      options.bool('--debug', 'print debugging info', default: false)
-    end
-
-    def logger
-      Logger.new($stdout).tap do |logger|
-        logger.formatter = ->(_severity, _datetime, _progname, msg) { "#{msg}\n" }
-        # default the log level to INFO, but this can be set to `DEBUG` via the `--debug` CLI option
-        logger.level = Logger::INFO
-      end
+      options.bool('-d', '--debug', 'print debugging info', default: false)
+      options.bool('-s', '--show-system-output', 'show system output', default: false)
     end
   end
 
   def initialize(options)
     @options = options
+    logger.debug("Running release with options #{@options}")
+  end
+
+  memoize \
+  def logger
+    Logger.new($stdout).tap do |logger|
+      logger.formatter = ->(_severity, _datetime, _progname, msg) { "[release_assistant] #{msg}\n" }
+      logger.level = @options[:debug] ? Logger::DEBUG : Logger::INFO
+    end
   end
 
   def run_release
@@ -55,7 +62,15 @@ class ReleaseAssistant
     bundle_install
     commit_changes(message: "Bump to v#{alpha_version_after_next_version}")
 
-    push_to_git_remote
+    push_release
+  rescue => error
+    logger.error(<<~ERROR_LOG)
+      \n
+      #{error.class.name.red}: #{error.message.red}
+      #{error.backtrace.join("\n")}
+    ERROR_LOG
+    restore_and_abort(exit_code: 1)
+  else
     switch_to_initial_branch
   end
 
@@ -68,12 +83,12 @@ class ReleaseAssistant
   end
 
   def confirm_release_plan
-    puts('Does that look good? [y]n')
+    logger.info('Does that look good? [y]n')
     response = $stdin.gets.chomp
 
     if response.downcase == 'n' # rubocop:disable Performance/Casecmp
-      puts('Okay, aborting.')
-      restore_and_abort
+      logger.info('Okay, aborting.')
+      restore_and_abort(exit_code: 0)
     end
   end
 
@@ -83,7 +98,11 @@ class ReleaseAssistant
   end
 
   def remember_initial_branch
-    @initial_branch = system_output('git branch --show-current')
+    @initial_branch = current_branch
+  end
+
+  def current_branch
+    system_output('git branch --show-current')
   end
 
   def switch_to_master
@@ -135,29 +154,59 @@ class ReleaseAssistant
     execute_command(%(git tag -m "Version #{next_version}" v#{next_version}))
   end
 
-  def push_to_git_remote
+  def push_release
+    if @options[:rubygems] && @options[:git]
+      logger.debug('Pushing to RubyGems and git')
+      push_to_rubygems_and_git
+    elsif @options[:git]
+      logger.debug('Pushing to git remote')
+      push_to_git
+    else
+      fail("The combination of options #{@options} is not supported!")
+    end
+  end
+
+  def push_to_git
     execute_command('git push')
     execute_command('git push --tags')
   end
 
+  def push_to_rubygems_and_git
+    execute_command('bundle exec rake release')
+  end
+
   def switch_to_initial_branch
-    execute_command("git checkout #{@initial_branch}")
+    execute_command("git checkout #{@initial_branch}") if @initial_branch
   end
 
   def system_output(command)
-    logger.debug("Getting output from `#{command}`")
     `#{command}`.rstrip
   end
 
-  def execute_command(command)
+  def execute_command(command, raise_error: true)
     logger.debug("Running system command `#{command}`")
-    system(command)
+    if @options[:show_system_output]
+      system(command, exception: raise_error)
+    else
+      system(command, exception: raise_error, out: File::NULL, err: File::NULL)
+    end
   end
 
-  def restore_and_abort
-    switch_to_initial_branch if @initial_branch
-    execute_command("git checkout Gemfile.lock #{changelog_path} #{version_file_path}")
-    exit(1)
+  def restore_and_abort(exit_code:)
+    if current_branch == 'master'
+      execute_command('git reset --hard origin/master')
+    end
+
+    if execute_command("git rev-parse v#{next_version}", raise_error: false)
+      execute_command("git tag -d v#{next_version}")
+    end
+
+    if !execute_command('git diff --exit-code', raise_error: false)
+      execute_command("git checkout Gemfile.lock #{changelog_path} #{version_file_path}")
+    end
+
+    switch_to_initial_branch
+    exit(exit_code)
   end
 
   def file_path(file_name)
@@ -204,9 +253,5 @@ class ReleaseAssistant
   memoize \
   def version_calculator
     ReleaseAssistant::VersionCalculator.new(current_version: current_version)
-  end
-
-  def logger
-    ReleaseAssistant.logger
   end
 end

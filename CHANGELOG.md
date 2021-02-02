@@ -1,5 +1,8 @@
 ## Unreleased
-[no unreleased changes yet]
+### Added
+- Allow for managing releases via RubyGems (in addition to GitHub)
+- Add `--show-system-output` option to show outpup of executed system commands. (By default, the
+  output of executed system commands will be suppressed.)
 
 ## v0.2.0 (2021-01-28)
 ### Changed
