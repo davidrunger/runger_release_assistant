@@ -2,6 +2,6 @@
 
 # rubocop:disable Style/StaticClass
 class ReleaseAssistant
-  VERSION = '0.3.1'
+  VERSION = '0.3.2.alpha'
 end
 # rubocop:enable Style/StaticClass
