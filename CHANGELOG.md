@@ -1,4 +1,4 @@
-## Unreleased
+## v0.3.1 (2021-02-01)
 ### Fixed
 - Release the correct (non-alpha) gem verision to RubyGems
 
