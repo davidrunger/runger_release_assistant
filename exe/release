@@ -5,7 +5,7 @@
 require 'slop'
 require_relative '../lib/release_assistant.rb'
 
-options =
+slop_options =
   Slop.parse do |o|
     o.banner = <<~BANNER
 
@@ -19,6 +19,15 @@ options =
 
     ReleaseAssistant.define_slop_options(o)
 
+    o.on('-i', '--init', 'create a `.release_assistant.yml` config file') do
+      File.write(
+        '.release_assistant.yml',
+        YAML.dump(ReleaseAssistant::DEFAULT_OPTIONS.stringify_keys),
+      )
+      puts("Created #{'.release_assistant.yml'.green.bold}!")
+      exit
+    end
+
     o.on('-v', '--version', 'print the version') do
       puts(ReleaseAssistant::VERSION)
       exit
@@ -30,6 +39,10 @@ options =
     end
   end
 
-ReleaseAssistant.logger.level = Logger::DEBUG if options.debug?
+config_file_options = ReleaseAssistant::ConfigFileReader.new.options_hash
 
-ReleaseAssistant.new(options).run_release
+ReleaseAssistant.new(
+  ReleaseAssistant::DEFAULT_OPTIONS.
+    merge(config_file_options).
+    merge(slop_options.to_h),
+).run_release
