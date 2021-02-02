@@ -1,4 +1,4 @@
-## Unreleased
+## v0.3.0 (2021-02-01)
 ### Added
 - Allow for managing releases via RubyGems (in addition to GitHub)
 - Add `--show-system-output` option to show outpup of executed system commands. (By default, the
