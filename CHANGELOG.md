@@ -1,5 +1,12 @@
 ## Unreleased
-[no unreleased changes yet]
+### Fixed
+- Release the correct (non-alpha) gem verision to RubyGems
+
+### Changed
+- Validate when initializing `ReleaseAssistant` that options are valid (which currently entails only
+  checking for `git: true`)
+- Always show system output for the release phase when pushing to RubyGems (if pushing to RubyGems)
+  in order to allow for engaging with the RubyGems 2FA prompt (which should be enabled)
 
 ## v0.3.0 (2021-02-01)
 ### Added

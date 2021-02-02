@@ -33,6 +33,7 @@ class ReleaseAssistant
 
   def initialize(options)
     @options = options
+    validate_options!
     logger.debug("Running release with options #{@options}")
   end
 
@@ -56,13 +57,13 @@ class ReleaseAssistant
     bundle_install
     commit_changes(message: "Prepare to release v#{next_version}")
     create_tag
+    push_to_rubygems_and_git if @options[:rubygems] && @options[:git]
 
     update_changelog_for_alpha
     update_version_file(alpha_version_after_next_version)
     bundle_install
     commit_changes(message: "Bump to v#{alpha_version_after_next_version}")
-
-    push_release
+    push_to_git if @options[:git]
   rescue => error
     logger.error(<<~ERROR_LOG)
       \n
@@ -75,6 +76,12 @@ class ReleaseAssistant
   end
 
   private
+
+  def validate_options!
+    if @options[:git] != true
+      fail('The `git` configuration option must be `true`')
+    end
+  end
 
   def print_release_plan
     logger.info("You are running the release process with options #{@options.to_h}!")
@@ -154,25 +161,16 @@ class ReleaseAssistant
     execute_command(%(git tag -m "Version #{next_version}" v#{next_version}))
   end
 
-  def push_release
-    if @options[:rubygems] && @options[:git]
-      logger.debug('Pushing to RubyGems and git')
-      push_to_rubygems_and_git
-    elsif @options[:git]
-      logger.debug('Pushing to git remote')
-      push_to_git
-    else
-      fail("The combination of options #{@options} is not supported!")
-    end
-  end
-
   def push_to_git
+    logger.debug('Pushing to git remote')
     execute_command('git push')
     execute_command('git push --tags')
   end
 
   def push_to_rubygems_and_git
-    execute_command('bundle exec rake release')
+    logger.debug('Pushing to RubyGems and git')
+    # Always show system output because 2FA should be enabled, which requires user to see the prompt
+    execute_command('bundle exec rake release', show_system_output: true)
   end
 
   def switch_to_initial_branch
@@ -183,9 +181,9 @@ class ReleaseAssistant
     `#{command}`.rstrip
   end
 
-  def execute_command(command, raise_error: true)
+  def execute_command(command, raise_error: true, show_system_output: false)
     logger.debug("Running system command `#{command}`")
-    if @options[:show_system_output]
+    if @options[:show_system_output] || show_system_output
       system(command, exception: raise_error)
     else
       system(command, exception: raise_error, out: File::NULL, err: File::NULL)
