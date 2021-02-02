@@ -1,3 +1,6 @@
+## Unreleased
+[no unreleased changes yet]
+
 ## v0.3.0 (2021-02-01)
 ### Added
 - Allow for managing releases via RubyGems (in addition to GitHub)
