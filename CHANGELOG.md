@@ -1,5 +1,6 @@
 ## Unreleased
-[no unreleased changes yet]
+### Changed
+- Bump Ruby version from 2.7.2 to 3.0.0
 
 ## v0.3.1 (2021-02-01)
 ### Fixed
