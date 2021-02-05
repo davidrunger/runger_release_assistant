@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-ruby '3.0.0'
-
 source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
@@ -11,7 +9,6 @@ gemspec
 
 group :development, :test do
   gem 'bundler', require: false
-  gem 'guard-espect', require: false, github: 'davidrunger/guard-espect'
   gem 'pry'
   gem 'pry-byebug'
   gem 'rake', require: false
@@ -19,9 +16,4 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rspec', require: false
-  gem 'runger_style', github: 'davidrunger/runger_style', require: false
-end
-
-group :test do
-  gem 'rspec_performance_summary', require: false, github: 'davidrunger/rspec_performance_summary'
 end
