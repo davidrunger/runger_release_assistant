@@ -18,10 +18,7 @@ Dir["#{File.dirname(__FILE__)}/release_assistant/**/*.rb"].sort.each { |file| re
 class ReleaseAssistant
   extend Memoist
 
-  DEFAULT_OPTIONS = {
-    git: true,
-    rubygems: false,
-  }.freeze
+  DEFAULT_OPTIONS = { git: true, rubygems: false }.freeze
 
   class << self
     def define_slop_options(options)
@@ -140,11 +137,7 @@ class ReleaseAssistant
   def update_version_file(new_version)
     old_version_file_content = file_contents(version_file_path)
     new_version_file_content =
-      old_version_file_content.
-        gsub(
-          /(VERSION += +['"]).*(['"])/,
-          "\\1#{new_version}\\2",
-        )
+      old_version_file_content.gsub(/(VERSION += +['"]).*(['"])/, "\\1#{new_version}\\2")
     write_file(version_file_path, new_version_file_content)
   end
 
@@ -231,8 +224,7 @@ class ReleaseAssistant
 
   memoize \
   def current_version
-    file_contents(version_file_path).
-      match(/VERSION += +['"](?<version>.*)['"]/)&.
+    file_contents(version_file_path).match(/VERSION += +['"](?<version>.*)['"]/)&.
       named_captures&.to_h&.
       dig('version')
   end
