@@ -16,9 +16,9 @@ GIT
 
 GIT
   remote: https://github.com/davidrunger/runger_style
-  revision: 07a46bdb3da013186fd394d47245efd90ced28b5
+  revision: bc0851b9e4c9ef90903573bcb4247a842eb0d7fb
   specs:
-    runger_style (0.2.18.alpha)
+    runger_style (0.2.19.alpha)
 
 PATH
   remote: .
