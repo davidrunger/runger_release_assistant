@@ -23,9 +23,3 @@ RSpec.configure do |config|
     RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 2_000
   end
 end
-
-def stubbed_slop_options(arguments_string)
-  options = Slop::Options.new
-  ReleaseAssistant.define_slop_options(options)
-  options.parse(arguments_string.split(/\s+/))
-end
