@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ruby '3.0.0'
+ruby '3.0.2'
 
 source 'https://rubygems.org'
 
@@ -20,8 +20,4 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rspec', require: false
   gem 'runger_style', github: 'davidrunger/runger_style', require: false
-end
-
-group :test do
-  gem 'rspec_performance_summary', require: false, github: 'davidrunger/rspec_performance_summary'
 end
