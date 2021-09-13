@@ -3,7 +3,6 @@
 require 'bundler/setup'
 Bundler.require(:test)
 require_relative '../lib/release_assistant.rb'
-require 'rspec_performance_summary'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

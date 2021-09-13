@@ -8,13 +8,6 @@ GIT
       rspec (>= 2.99.0, < 4.0)
 
 GIT
-  remote: https://github.com/davidrunger/rspec_performance_summary
-  revision: 664f0bca9d78cb89552007836bc8816b5d1c0a29
-  specs:
-    rspec_performance_summary (0.1.8.alpha)
-      rspec-core (~> 3.0)
-
-GIT
   remote: https://github.com/davidrunger/runger_style
   revision: 659404a8d0dc9de979d181f9c43e9fe83b8cc007
   specs:
@@ -135,14 +128,13 @@ DEPENDENCIES
   rake
   release_assistant!
   rspec
-  rspec_performance_summary!
   rubocop
   rubocop-performance
   rubocop-rspec
   runger_style!
 
 RUBY VERSION
-   ruby 3.0.0p0
+   ruby 3.0.2p107
 
 BUNDLED WITH
-   2.2.8
+   2.2.22
