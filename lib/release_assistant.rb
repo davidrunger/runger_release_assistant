@@ -205,11 +205,11 @@ class ReleaseAssistant
   end
 
   def file_contents(file_path)
-    File.read("#{ENV['PWD']}/#{file_path}")
+    File.read("#{ENV.fetch('PWD')}/#{file_path}")
   end
 
   def write_file(file_path, file_contents)
-    File.write("#{ENV['PWD']}/#{file_path}", file_contents)
+    File.write("#{ENV.fetch('PWD')}/#{file_path}", file_contents)
   end
 
   memoize \
