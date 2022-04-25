@@ -16,7 +16,7 @@ class ReleaseAssistant::ConfigFileReader
 
   memoize \
   def config_file_path
-    "#{ENV['PWD']}/.release_assistant.yml"
+    "#{ENV.fetch('PWD')}/.release_assistant.yml"
   end
 
   def config_file_exists?
