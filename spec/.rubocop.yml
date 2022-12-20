@@ -3,7 +3,7 @@ inherit_from:
 Metrics/BlockLength:
   Enabled: false
 Style/MethodCallWithArgsParentheses:
-  IgnoredMethods:
+  AllowedMethods:
     - describe
     - include
     - not_to

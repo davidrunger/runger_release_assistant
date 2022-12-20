@@ -13,7 +13,7 @@ class ReleaseAssistant
 end
 # rubocop:enable Lint/EmptyClass
 
-Dir["#{File.dirname(__FILE__)}/release_assistant/**/*.rb"].sort.each { |file| require file }
+Dir["#{File.dirname(__FILE__)}/release_assistant/**/*.rb"].each { |file| require file }
 
 class ReleaseAssistant
   extend Memoist
@@ -242,6 +242,6 @@ class ReleaseAssistant
 
   memoize \
   def version_calculator
-    ReleaseAssistant::VersionCalculator.new(current_version: current_version)
+    ReleaseAssistant::VersionCalculator.new(current_version:)
   end
 end
