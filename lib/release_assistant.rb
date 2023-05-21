@@ -47,7 +47,7 @@ class ReleaseAssistant
     confirm_release_plan
     verify_repository_cleanliness
     remember_initial_branch
-    switch_to_master
+    switch_to_main
 
     update_changelog_for_release
     update_version_file(next_version)
@@ -109,8 +109,13 @@ class ReleaseAssistant
     system_output('git branch --show-current')
   end
 
-  def switch_to_master
-    execute_command('git checkout master')
+  def switch_to_main
+    execute_command("git checkout #{main_branch}")
+  end
+
+  memoize \
+  def main_branch
+    @options[:primary_branch] || 'master'
   end
 
   def update_changelog_for_release
@@ -184,8 +189,8 @@ class ReleaseAssistant
   end
 
   def restore_and_abort(exit_code:)
-    if current_branch == 'master'
-      execute_command('git reset --hard origin/master')
+    if current_branch == main_branch
+      execute_command("git reset --hard origin/#{main_branch}")
     end
 
     if execute_command("git rev-parse v#{next_version}", raise_error: false)

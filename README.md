@@ -106,6 +106,19 @@ Example:
     -h, --help                print this help information
 ```
 
+## Config
+
+Create a configuration file with `release --init`.
+
+Here is an example:
+
+```yml
+---
+git: true
+rubygems: false
+primary_branch: main
+```
+
 ## Using with RubyGems
 
 By default, `release_assistant` assumes that you only want to "release" your gem via GitHub. If
