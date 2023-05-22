@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-# Specify your gem's dependencies in release_assistant.gemspec
+# Specify your gem's dependencies in runger_release_assistant.gemspec
 gemspec
 
 group :development, :test do

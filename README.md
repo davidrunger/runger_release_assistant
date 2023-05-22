@@ -1,12 +1,12 @@
-![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/davidrunger/release_assistant?include_prereleases)
+![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/davidrunger/runger_release_assistant?include_prereleases)
 
-# `release_assistant`
+# `runger_release_assistant`
 
 This is a CLI tool that helps to automate the process of releasing new versions of a gem via
 git/GitHub and (optionally) via RubyGems.
 
 <!--ts-->
-   * [release_assistant](#release_assistant)
+   * [runger_release_assistant](#runger_release_assistant)
       * [Dependencies](#dependencies)
       * [Installation](#installation)
          * [Global installation](#global-installation)
@@ -31,24 +31,24 @@ This gem assumes that you have `git` installed.
 
 ### Global installation
 
-The easiest way to install `release_assistant` "globally" on your machine is via the
+The easiest way to install `runger_release_assistant` "globally" on your machine is via the
 [`specific_install`](https://github.com/rdp/specific_install) gem, which will pull and build the
-`release_assistant` gem directly from the `master` branch of this repo:
+`runger_release_assistant` gem directly from the `master` branch of this repo:
 
 ```
 gem install specific_install
-gem specific_install davidrunger/release_assistant
+gem specific_install davidrunger/runger_release_assistant
 ```
 
 Then you can execute `release` anywhere on your machine.
 
 ### Installation in a specific project
 
-Add `release_assistant` to your `Gemfile`:
+Add `runger_release_assistant` to your `Gemfile`:
 
 ```rb
 group :development do
-  gem 'release_assistant', require: false, git: 'https://github.com/davidrunger/release_assistant'
+  gem 'runger_release_assistant', require: false, git: 'https://github.com/davidrunger/runger_release_assistant'
 end
 ```
 
@@ -59,7 +59,7 @@ Then, you can execute `bundle exec release`.
 When using bundler, you can create a binstub via:
 
 ```
-bundle binstubs release_assistant
+bundle binstubs runger_release_assistant
 ```
 
 Then, you can execute `bin/release`.
@@ -121,7 +121,7 @@ primary_branch: main
 
 ## Using with RubyGems
 
-By default, `release_assistant` assumes that you only want to "release" your gem via GitHub. If
+By default, `runger_release_assistant` assumes that you only want to "release" your gem via GitHub. If
 you'd also like to release the gem via RubyGems, then create a `.release_assistant.yml` file by
 executing `release --init`. Within that file, modify the default `rubygems: false` option to
 `rubygems: true`.
@@ -137,7 +137,7 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at
-https://github.com/davidrunger/release_assistant.
+https://github.com/davidrunger/runger_release_assistant.
 
 ## License
 

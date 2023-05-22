@@ -1,5 +1,8 @@
 ## Unreleased
-[no unreleased changes yet]
+### Changed
+- Rename with "Runger" prefix
+  - For backwards compatibility, the (optional) config file will still be called
+    `.release_assistant.yml` (not `.runger_release_assistant.yml`)
 
 ## v0.3.2 (2021-02-05)
 ### Changed
@@ -10,7 +13,7 @@
 - Release the correct (non-alpha) gem verision to RubyGems
 
 ### Changed
-- Validate when initializing `ReleaseAssistant` that options are valid (which currently entails only
+- Validate when initializing `RungerReleaseAssistant` that options are valid (which currently entails only
   checking for `git: true`)
 - Always show system output for the release phase when pushing to RubyGems (if pushing to RubyGems)
   in order to allow for engaging with the RubyGems 2FA prompt (which should be enabled)
@@ -40,7 +43,7 @@
 
 ## v0.0.1 (2021-01-26)
 ### Added
-- Create `release_assistant` tool to aid with releasing/publishing gems (particularly via GitHub)
+- Create `runger_release_assistant` tool to aid with releasing/publishing gems (particularly via GitHub)
 - Require confirmation before releasing
 - Restore original state (current git branch, file contents) when aborting
 

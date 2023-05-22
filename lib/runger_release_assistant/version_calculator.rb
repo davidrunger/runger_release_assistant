@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReleaseAssistant::VersionCalculator
+class RungerReleaseAssistant::VersionCalculator
   extend Memoist
 
   def initialize(current_version:)

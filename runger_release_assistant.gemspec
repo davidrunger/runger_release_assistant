@@ -2,16 +2,16 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'release_assistant/version'
+require 'runger_release_assistant/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'release_assistant'
-  spec.version       = ReleaseAssistant::VERSION
+  spec.name          = 'runger_release_assistant'
+  spec.version       = RungerReleaseAssistant::VERSION
   spec.authors       = ['David Runger']
   spec.email         = ['davidjrunger@gmail.com']
 
   spec.summary       = 'CLI tool for parsing git history'
-  spec.homepage      = 'https://github.com/davidrunger/release_assistant'
+  spec.homepage      = 'https://github.com/davidrunger/runger_release_assistant'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -21,9 +21,9 @@ Gem::Specification.new do |spec|
     spec.metadata['allowed_push_host'] = 'https://davidrunger.com'
 
     spec.metadata['homepage_uri'] = spec.homepage
-    spec.metadata['source_code_uri'] = 'https://github.com/davidrunger/release_assistant'
+    spec.metadata['source_code_uri'] = 'https://github.com/davidrunger/runger_release_assistant'
     spec.metadata['changelog_uri'] =
-      'https://github.com/davidrunger/release_assistant/blob/master/CHANGELOG.md'
+      'https://github.com/davidrunger/runger_release_assistant/blob/master/CHANGELOG.md'
   else
     raise('RubyGems 2.0 or newer is required to protect against public gem pushes.')
   end

@@ -2,7 +2,7 @@
 
 require 'bundler/setup'
 Bundler.require(:test)
-require_relative '../lib/release_assistant.rb'
+require_relative '../lib/runger_release_assistant.rb'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

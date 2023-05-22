@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReleaseAssistant::ConfigFileReader
+class RungerReleaseAssistant::ConfigFileReader
   extend Memoist
 
   memoize \

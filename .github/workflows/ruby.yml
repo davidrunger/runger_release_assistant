@@ -18,6 +18,6 @@ jobs:
     - name: Run RSpec tests
       run: bin/rspec --format progress
     - name: Ensure alpha version
-      run: grep alpha lib/release_assistant/version.rb
+      run: grep alpha lib/runger_release_assistant/version.rb
     - name: Ensure no git diff
       run: git diff --exit-code
