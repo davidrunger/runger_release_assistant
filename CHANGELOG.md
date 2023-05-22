@@ -1,3 +1,6 @@
+## Unreleased
+[no unreleased changes yet]
+
 ## v0.4.0 (2023-05-22)
 ### Added
 - Release via RubyGems
