@@ -6,16 +6,15 @@ require 'memoist'
 require 'slop'
 require 'yaml'
 
-# This `ReleaseAssistant` class is the namespace within which most of the gem's code is written.
 # We need to define the class before requiring the modules.
 # rubocop:disable Lint/EmptyClass
-class ReleaseAssistant
+class RungerReleaseAssistant
 end
 # rubocop:enable Lint/EmptyClass
 
-Dir["#{File.dirname(__FILE__)}/release_assistant/**/*.rb"].each { |file| require file }
+Dir["#{File.dirname(__FILE__)}/runger_release_assistant/**/*.rb"].each { |file| require file }
 
-class ReleaseAssistant
+class RungerReleaseAssistant
   extend Memoist
 
   DEFAULT_OPTIONS = { git: true, rubygems: false }.freeze
@@ -37,7 +36,10 @@ class ReleaseAssistant
   memoize \
   def logger
     Logger.new($stdout).tap do |logger|
-      logger.formatter = ->(_severity, _datetime, _progname, msg) { "[release_assistant] #{msg}\n" }
+      logger.formatter =
+        ->(_severity, _datetime, _progname, msg) {
+          "[runger_release_assistant] #{msg}\n"
+        }
       logger.level = @options[:debug] ? Logger::DEBUG : Logger::INFO
     end
   end
@@ -241,12 +243,14 @@ class ReleaseAssistant
 
   def alpha_version_after_next_version
     next_patch_version =
-      ReleaseAssistant::VersionCalculator.new(current_version: next_version).increment_for('patch')
+      RungerReleaseAssistant::VersionCalculator.new(
+        current_version: next_version,
+      ).increment_for('patch')
     "#{next_patch_version}.alpha"
   end
 
   memoize \
   def version_calculator
-    ReleaseAssistant::VersionCalculator.new(current_version:)
+    RungerReleaseAssistant::VersionCalculator.new(current_version:)
   end
 end
