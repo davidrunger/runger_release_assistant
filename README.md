@@ -31,13 +31,8 @@ This gem assumes that you have `git` installed.
 
 ### Global installation
 
-The easiest way to install `runger_release_assistant` "globally" on your machine is via the
-[`specific_install`](https://github.com/rdp/specific_install) gem, which will pull and build the
-`runger_release_assistant` gem directly from the `master` branch of this repo:
-
 ```
-gem install specific_install
-gem specific_install davidrunger/runger_release_assistant
+gem install runger_release_assistant
 ```
 
 Then you can execute `release` anywhere on your machine.
@@ -48,7 +43,7 @@ Add `runger_release_assistant` to your `Gemfile`:
 
 ```rb
 group :development do
-  gem 'runger_release_assistant', require: false, git: 'https://github.com/davidrunger/runger_release_assistant'
+  gem 'runger_release_assistant', require: false
 end
 ```
 

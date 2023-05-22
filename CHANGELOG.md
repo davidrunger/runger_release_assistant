@@ -1,4 +1,7 @@
 ## Unreleased
+### Added
+- Release via RubyGems
+
 ### Changed
 - Rename with "Runger" prefix
   - For backwards compatibility, the (optional) config file will still be called
