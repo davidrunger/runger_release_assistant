@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
-ruby '3.2.0'
-
+ruby File.read('.ruby-version').rstrip
 source 'https://rubygems.org'
 
-git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
-
-# Specify your gem's dependencies in runger_release_assistant.gemspec
 gemspec
 
 group :development, :test do
