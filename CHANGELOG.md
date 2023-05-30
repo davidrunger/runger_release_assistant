@@ -1,5 +1,6 @@
 ## Unreleased
-[no unreleased changes yet]
+### Changed
+- Fix `spec.summary` in gemspec
 
 ## v0.4.1 (2023-05-30)
 ### Changed
