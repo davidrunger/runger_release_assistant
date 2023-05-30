@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class RungerReleaseAssistant::ConfigFileReader
-  extend Memoist
+  prepend MemoWise
 
-  memoize \
+  memo_wise \
   def options_hash
     if config_file_exists?
       YAML.load_file(config_file_path).symbolize_keys
@@ -14,7 +14,7 @@ class RungerReleaseAssistant::ConfigFileReader
 
   private
 
-  memoize \
+  memo_wise \
   def config_file_path
     "#{ENV.fetch('PWD')}/.release_assistant.yml"
   end

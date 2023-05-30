@@ -2,7 +2,7 @@
 
 require 'active_support/all'
 require 'colorize'
-require 'memoist'
+require 'memo_wise'
 require 'slop'
 require 'yaml'
 
@@ -15,7 +15,7 @@ end
 Dir["#{File.dirname(__FILE__)}/runger_release_assistant/**/*.rb"].each { |file| require file }
 
 class RungerReleaseAssistant
-  extend Memoist
+  prepend MemoWise
 
   DEFAULT_OPTIONS = { git: true, rubygems: false }.freeze
 
@@ -33,7 +33,7 @@ class RungerReleaseAssistant
     logger.debug("Running release with options #{@options}")
   end
 
-  memoize \
+  memo_wise \
   def logger
     Logger.new($stdout).tap do |logger|
       logger.formatter =
@@ -115,7 +115,7 @@ class RungerReleaseAssistant
     execute_command("git checkout #{main_branch}")
   end
 
-  memoize \
+  memo_wise \
   def main_branch
     @options[:primary_branch] || 'master'
   end
@@ -219,24 +219,24 @@ class RungerReleaseAssistant
     File.write("#{ENV.fetch('PWD')}/#{file_path}", file_contents)
   end
 
-  memoize \
+  memo_wise \
   def version_file_path
     file_path('version.rb')
   end
 
-  memoize \
+  memo_wise \
   def changelog_path
     file_path('CHANGELOG.md')
   end
 
-  memoize \
+  memo_wise \
   def current_version
     file_contents(version_file_path).match(/VERSION += +['"](?<version>.*)['"]/)&.
       named_captures&.to_h&.
       dig('version')
   end
 
-  memoize \
+  memo_wise \
   def next_version
     version_calculator.increment_for(@options[:type])
   end
@@ -249,7 +249,7 @@ class RungerReleaseAssistant
     "#{next_patch_version}.alpha"
   end
 
-  memoize \
+  memo_wise \
   def version_calculator
     RungerReleaseAssistant::VersionCalculator.new(current_version:)
   end

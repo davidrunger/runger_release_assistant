@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RungerReleaseAssistant::VersionCalculator
-  extend Memoist
+  prepend MemoWise
 
   def initialize(current_version:)
     @current_version = current_version
@@ -42,27 +42,27 @@ class RungerReleaseAssistant::VersionCalculator
 
   private
 
-  memoize \
+  memo_wise \
   def modifier
     @current_version.split('.')[3]
   end
 
-  memoize \
+  memo_wise \
   def parts
     @current_version.split('.').first(3).map { Integer(_1) }
   end
 
-  memoize \
+  memo_wise \
   def major
     parts[0]
   end
 
-  memoize \
+  memo_wise \
   def minor
     parts[1]
   end
 
-  memoize \
+  memo_wise \
   def patch
     parts[2]
   end
