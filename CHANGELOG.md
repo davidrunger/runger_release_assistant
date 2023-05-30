@@ -1,5 +1,6 @@
 ## Unreleased
-[no unreleased changes yet]
+### Changed
+- Move from Memoist to MemoWise
 
 ## v0.4.0 (2023-05-22)
 ### Added
