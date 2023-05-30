@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['David Runger']
   spec.email         = ['davidjrunger@gmail.com']
 
-  spec.summary       = 'CLI tool for parsing git history'
+  spec.summary       = 'A gem / CLI tool to automate the release process of other gems'
   spec.homepage      = 'https://github.com/davidrunger/runger_release_assistant'
   spec.license       = 'MIT'
 
