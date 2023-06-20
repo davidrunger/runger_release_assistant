@@ -2,8 +2,11 @@
 
 # frozen_string_literal: true
 
+require 'rainbow/refinement'
 require 'slop'
 require_relative '../lib/runger_release_assistant.rb'
+
+using Rainbow
 
 slop_options =
   Slop.parse do |o|
