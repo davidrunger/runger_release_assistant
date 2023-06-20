@@ -1,3 +1,6 @@
+## Unreleased
+[no unreleased changes yet]
+
 ## v0.5.0 (2023-06-20)
 ### Changed
 - Switch from `colorize` to `rainbow` for colored terminal printing
