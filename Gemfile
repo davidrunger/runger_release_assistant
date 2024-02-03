@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-ruby File.read('.ruby-version').rstrip
+ruby file: '.ruby-version'
+
 source 'https://rubygems.org'
 
 gemspec
