@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Source Ruby version from `.ruby-version` file
 
 ## v0.5.0 (2023-06-20)
 ### Changed
