@@ -95,7 +95,7 @@ GEM
     rubocop-rspec_rails (2.28.3)
       rubocop (~> 1.40)
     ruby-progressbar (1.13.0)
-    runger_style (2.3.0)
+    runger_style (2.4.0)
       prism (>= 0.24.0)
       rubocop (>= 1.38.0, < 2)
     slop (4.10.1)
