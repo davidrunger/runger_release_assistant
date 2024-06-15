@@ -1,4 +1,4 @@
-## Unreleased
+## v0.7.0 (2024-06-15)
 - Look for and use any of several common primary branch names (`main`, `master`, or `trunk`)
 
 ## v0.6.0 (2024-02-02)
