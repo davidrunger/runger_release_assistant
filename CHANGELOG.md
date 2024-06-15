@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Look for and use any of several common primary branch names (`main`, `master`, or `trunk`)
 
 ## v0.6.0 (2024-02-02)
 - Source Ruby version from `.ruby-version` file

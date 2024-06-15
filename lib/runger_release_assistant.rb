@@ -19,6 +19,16 @@ Dir["#{File.dirname(__FILE__)}/runger_release_assistant/**/*.rb"].each { |file| 
 class RungerReleaseAssistant
   prepend MemoWise
 
+  class UnknownPrimaryBranch < StandardError
+    DEFAULT_MESSAGE = <<~MESSAGE.squish
+      Failed to automatically determine primary branch. Specify it via the `primary_branch` option.
+    MESSAGE
+
+    def initialize(message = DEFAULT_MESSAGE)
+      super
+    end
+  end
+
   DEFAULT_OPTIONS = { git: true, rubygems: false }.freeze
 
   class << self
@@ -114,12 +124,19 @@ class RungerReleaseAssistant
   end
 
   def switch_to_main
-    execute_command("git checkout #{main_branch}")
+    execute_command("git checkout #{primary_branch}")
   end
 
   memo_wise \
-  def main_branch
-    @options[:primary_branch] || 'master'
+  def primary_branch
+    @options[:primary_branch] ||
+    common_primary_branch_name ||
+    (raise(UnknownPrimaryBranch))
+  end
+
+  memo_wise \
+  def common_primary_branch_name
+    `git branch`.scan(/ (main|master|trunk)$/).dig(0, 0)
   end
 
   def update_changelog_for_release
@@ -193,8 +210,8 @@ class RungerReleaseAssistant
   end
 
   def restore_and_abort(exit_code:)
-    if current_branch == main_branch
-      execute_command("git reset --hard origin/#{main_branch}")
+    if current_branch == primary_branch
+      execute_command("git reset --hard origin/#{primary_branch}")
     end
 
     if execute_command("git rev-parse v#{next_version}", raise_error: false)
