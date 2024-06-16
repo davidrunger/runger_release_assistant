@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
     spec.metadata['homepage_uri'] = spec.homepage
     spec.metadata['source_code_uri'] = 'https://github.com/davidrunger/runger_release_assistant'
     spec.metadata['changelog_uri'] =
-      'https://github.com/davidrunger/runger_release_assistant/blob/master/CHANGELOG.md'
+      'https://github.com/davidrunger/runger_release_assistant/blob/main/CHANGELOG.md'
   else
     raise('RubyGems 2.0 or newer is required to protect against public gem pushes.')
   end
