@@ -130,8 +130,8 @@ class RungerReleaseAssistant
   memo_wise \
   def primary_branch
     @options[:primary_branch] ||
-    common_primary_branch_name ||
-    (raise(UnknownPrimaryBranch))
+      common_primary_branch_name ||
+      (raise(UnknownPrimaryBranch))
   end
 
   memo_wise \
