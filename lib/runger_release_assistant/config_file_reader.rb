@@ -19,6 +19,7 @@ class RungerReleaseAssistant::ConfigFileReader
     "#{ENV.fetch('PWD')}/.release_assistant.yml"
   end
 
+  memo_wise \
   def config_file_exists?
     File.exist?(config_file_path)
   end
