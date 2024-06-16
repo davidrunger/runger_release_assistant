@@ -103,7 +103,7 @@ Example:
 
 ## Config
 
-Create a configuration file with `release --init`.
+You can create a configuration file with `release --init`.
 
 Here is an example:
 
@@ -113,6 +113,15 @@ git: true
 rubygems: false
 primary_branch: main
 ```
+
+The above example (more or less) illustrates the default values, so you don't
+need to create a config file, if those are the values that you want.
+
+Regarding the `primary_branch` option, `runger_release_assistant` will
+automatically detect as the "primary branch" any one of the following: `main`,
+`master`, or `trunk`. So, if one of those is the name of your primary branch,
+and if you also want `git: true` and `rubygems: false`, then you don't need to
+create a config file.
 
 ## Using with RubyGems
 
