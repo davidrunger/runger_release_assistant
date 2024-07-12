@@ -1,5 +1,12 @@
 ## Unreleased
-[no unreleased changes yet]
+- Don't require enter key when confirming release
+- Print currently released version when confirming release
+- Print changelog and diff when confirming release
+
+### Internal
+- Bump Ruby from 3.3.3 to 3.3.4
+- Update gems
+- Run Gitleaks, ShellCheck, and RuboCop in pre-push hook
 
 ## v0.9.0 (2024-06-28)
 - Enforce only major and minor parts of required Ruby version (loosening the required Ruby version from 3.3.3 to 3.3.0)

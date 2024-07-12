@@ -1,12 +1,26 @@
 # frozen_string_literal: true
 
 require 'active_support/all'
+require 'io/console'
 require 'memo_wise'
 require 'rainbow/refinement'
 require 'slop'
 require 'yaml'
 
+module StringWithPipe
+  refine String do
+    def pipe(command)
+      IO.popen(command, 'r+') do |io|
+        io.puts(self)
+        io.close_write
+        io.read
+      end
+    end
+  end
+end
+
 using Rainbow
+using StringWithPipe
 
 # We need to define the class before requiring the modules.
 # rubocop:disable Lint/EmptyClass
@@ -57,8 +71,8 @@ class RungerReleaseAssistant
   end
 
   def run_release
-    print_release_plan
-    confirm_release_plan
+    print_release_info
+    confirm_release_looks_good
     verify_repository_cleanliness
     remember_initial_branch
     switch_to_main
@@ -94,19 +108,29 @@ class RungerReleaseAssistant
     end
   end
 
-  def print_release_plan
-    logger.info("You are running the release process with options #{@options.to_h}!")
-    logger.info("Current version is #{current_version}")
-    logger.info("Next version will be #{next_version}")
+  def print_release_info
+    logger.info("You are running the release process with options #{@options.to_h}.")
+    logger.info("Current released version is #{current_released_version.blue}.")
+    logger.info("Current alpha version is #{current_version.yellow}.")
+    logger.info("Next version will be #{next_version.green}.")
+
+    print_changelog_content_of_upcoming_release
+
+    print_diff_since_last_release
   end
 
-  def confirm_release_plan
+  def confirm_release_looks_good
     logger.info('Does that look good? [y]n')
-    response = $stdin.gets.chomp
 
-    if response.downcase == 'n' # rubocop:disable Performance/Casecmp
+    case $stdin.getch
+    when 'n', "\u0003"
       logger.info('Okay, aborting.')
       restore_and_abort(exit_code: 0)
+    when 'y', "\r"
+      # (proceed)
+    else
+      logger.info("That's not an option.")
+      confirm_release_looks_good
     end
   end
 
@@ -177,7 +201,11 @@ class RungerReleaseAssistant
   end
 
   def create_tag
-    execute_command(%(git tag -m "Version #{next_version}" v#{next_version}))
+    execute_command(%(git tag -m 'Version #{next_version}' '#{git_tag_version(next_version)}'))
+  end
+
+  def git_tag_version(version)
+    "v#{version}"
   end
 
   def push_to_git
@@ -226,6 +254,23 @@ class RungerReleaseAssistant
     exit(exit_code)
   end
 
+  def print_changelog_content_of_upcoming_release
+    logger.info('Changelog content for this upcoming release:')
+    File.read(changelog_path)[/\A## Unreleased\n(?:(?!\n## ).)+/m].
+      pipe('bat --color always --language markdown --style grid,numbers').
+      then { puts(_1) }
+  end
+
+  def print_diff_since_last_release
+    logger.info('Diff since the last release:')
+    system(
+      { 'DELTA_PAGER' => 'cat' },
+      'git',
+      'diff',
+      "#{git_tag_version(current_released_version)}...",
+    )
+  end
+
   def file_path(file_name)
     system_output("find . -type f -name #{file_name}").delete_prefix('./')
   end
@@ -246,6 +291,11 @@ class RungerReleaseAssistant
   memo_wise \
   def changelog_path
     file_path('CHANGELOG.md')
+  end
+
+  memo_wise \
+  def current_released_version
+    `git tag -l 'v[0-9]*.[0-9]*.[0-9]*' | sort -V | tail -1`.delete_prefix('v').rstrip
   end
 
   memo_wise \
