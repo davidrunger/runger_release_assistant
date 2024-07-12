@@ -1,3 +1,6 @@
+## Unreleased
+[no unreleased changes yet]
+
 ## v0.10.0 (2024-07-12)
 - Don't require enter key when confirming release
 - Print currently released version when confirming release
