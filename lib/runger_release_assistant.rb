@@ -97,6 +97,7 @@ class RungerReleaseAssistant
     ERROR_LOG
     restore_and_abort(exit_code: 1)
   else
+    run_safe_command
     switch_to_initial_branch
   end
 
@@ -218,6 +219,12 @@ class RungerReleaseAssistant
     logger.debug('Pushing to RubyGems and git')
     # Always show system output because 2FA should be enabled, which requires user to see the prompt
     execute_command('bundle exec rake release', show_system_output: true)
+  end
+
+  def run_safe_command
+    if system('which safe')
+      execute_command('safe')
+    end
   end
 
   def switch_to_initial_branch
