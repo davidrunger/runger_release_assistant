@@ -1,4 +1,4 @@
-## Unreleased
+## v0.11.0 (2024-07-23)
 - Run 'safe' command (if one exists) after releasing
 
 ## v0.10.0 (2024-07-12)
