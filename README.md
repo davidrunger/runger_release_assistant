@@ -2,26 +2,45 @@
 
 # `runger_release_assistant`
 
-This is a CLI tool that helps to automate the process of releasing new versions of a gem via
-git/GitHub and (optionally) via RubyGems.
+This is a CLI tool that I (David Runger) use to automate the release of new gem
+versions via git/GitHub and (optionally) via RubyGems.
+
+**I do not recommend this gem for general use.**
 
 <!--ts-->
-   * [runger_release_assistant](#runger_release_assistant)
-      * [Dependencies](#dependencies)
-      * [Installation](#installation)
-         * [Global installation](#global-installation)
-         * [Installation in a specific project](#installation-in-a-specific-project)
-            * [Create a binstub](#create-a-binstub)
-      * [Basic usage](#basic-usage)
-         * [Available options and examples](#available-options-and-examples)
-      * [Using with RubyGems](#using-with-rubygems)
-      * [Development](#development)
-      * [Contributing](#contributing)
-      * [License](#license)
+* [runger_release_assistant](#runger_release_assistant)
+   * [Not recommended for general use!](#not-recommended-for-general-use)
+   * [Dependencies](#dependencies)
+   * [Installation](#installation)
+      * [Global installation](#global-installation)
+      * [Installation in a specific project](#installation-in-a-specific-project)
+         * [Create a binstub](#create-a-binstub)
+   * [Basic usage](#basic-usage)
+      * [Available options and examples](#available-options-and-examples)
+   * [Config](#config)
+   * [Using with RubyGems](#using-with-rubygems)
+   * [Development](#development)
+   * [Contributing](#contributing)
+   * [License](#license)
 
-<!-- Added by: david, at: Mon Feb  1 20:16:03 PST 2021 -->
+<!-- Created by https://github.com/ekalinin/github-markdown-toc -->
+<!-- Added by: david, at: Tue Jul 23 12:46:01 AM CDT 2024 -->
 
 <!--te-->
+
+## Not recommended for general use!
+
+This gem is somewhat customized and built specifically for my (David Runger's)
+custom and idiosyncratic workflow. For example, after releasing, this gem will
+automatically execute a `safe` command, if one is present on the machine. You
+might not want this behavior (if you have a `safe` command that you _don't_ want
+to be invoked after a release).
+
+Realistically speaking, though, this gem actually probably could be used by
+anyone, since most of this gem's functionality actually is built in a
+generalized way that I think won't conflict with most other people's workflows,
+but, still, I'm guessing that there are other, better tools available, anyway,
+and, so, on net, I just wouldn't recommend that others use this gem.
 
 ## Dependencies
 

@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Run 'safe' command (if one exists) after releasing
 
 ## v0.10.0 (2024-07-12)
 - Don't require enter key when confirming release
