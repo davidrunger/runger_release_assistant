@@ -1,3 +1,6 @@
+## Unreleased
+[no unreleased changes yet]
+
 ## v0.12.0 (2024-07-28)
 - Execute `safe` command outside of Gemfile context
 
