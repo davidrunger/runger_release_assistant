@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Execute `safe` command outside of Gemfile context
 
 ## v0.11.0 (2024-07-23)
 - Run 'safe' command (if one exists) after releasing

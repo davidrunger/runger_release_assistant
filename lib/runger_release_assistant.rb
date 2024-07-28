@@ -223,7 +223,7 @@ class RungerReleaseAssistant
 
   def run_safe_command
     if system('which safe')
-      execute_command('safe')
+      execute_command('safe', clear_bundler_context: true)
     end
   end
 
@@ -235,13 +235,29 @@ class RungerReleaseAssistant
     `#{command}`.rstrip
   end
 
-  def execute_command(command, raise_error: true, show_system_output: false)
+  def execute_command(
+    command,
+    raise_error: true,
+    show_system_output: false,
+    clear_bundler_context: false
+  )
     logger.debug("Running system command `#{command}`")
-    if @options[:show_system_output] || show_system_output
-      system(command, exception: raise_error)
-    else
-      system(command, exception: raise_error, out: File::NULL, err: File::NULL)
-    end
+
+    env =
+      if clear_bundler_context
+        ENV.keys.grep(/\A(BUNDLE|RUBY)/).to_h { [_1, nil] }
+      else
+        {}
+      end
+
+    kwargs =
+      if @options[:show_system_output] || show_system_output
+        {}
+      else
+        { out: File::NULL, err: File::NULL }
+      end
+
+    system(env, command, exception: raise_error, **kwargs)
   end
 
   def restore_and_abort(exit_code:)
