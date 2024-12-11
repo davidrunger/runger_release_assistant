@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Remove upper bounds on versions for all dependencies.
 
 ## v0.12.0 (2024-07-28)
 - Execute `safe` command outside of Gemfile context
