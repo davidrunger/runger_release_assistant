@@ -2,6 +2,6 @@
 
 # rubocop:disable Style/StaticClass
 class RungerReleaseAssistant
-  VERSION = '0.12.1.alpha'
+  VERSION = '0.13.0'
 end
 # rubocop:enable Style/StaticClass
