@@ -71,6 +71,7 @@ class RungerReleaseAssistant
   end
 
   def run_release
+    ensure_on_main_branch
     print_release_info
     confirm_release_looks_good
     verify_repository_cleanliness
@@ -106,6 +107,12 @@ class RungerReleaseAssistant
   def validate_options!
     if @options[:git] != true
       fail('The `git` configuration option must be `true`')
+    end
+  end
+
+  def ensure_on_main_branch
+    if current_branch != primary_branch
+      fail('You must be on the primary branch to release!')
     end
   end
 
