@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    runger_release_assistant (0.14.0)
+    runger_release_assistant (0.14.1.alpha)
       activesupport (>= 6)
       memo_wise (>= 1.7)
       rainbow (>= 3.0)
