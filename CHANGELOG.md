@@ -1,4 +1,4 @@
-## Unreleased
+## v0.14.0 (2024-12-31)
 - Ensure we are on the primary branch when releasing
 
 ## v0.13.0 (2024-12-10)
