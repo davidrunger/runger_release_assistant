@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Ensure we are on the primary branch when releasing
 
 ## v0.13.0 (2024-12-10)
 - Remove upper bounds on versions for all dependencies.
