@@ -63,9 +63,9 @@ class RungerReleaseAssistant
   def logger
     Logger.new($stdout).tap do |logger|
       logger.formatter =
-        ->(_severity, _datetime, _progname, msg) {
+        ->(_severity, _datetime, _progname, msg) do
           "[runger_release_assistant] #{msg}\n"
-        }
+        end
       logger.level = @options[:debug] ? Logger::DEBUG : Logger::INFO
     end
   end
