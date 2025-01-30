@@ -1,4 +1,4 @@
-## Unreleased
+## v1.0.0 (2025-01-29)
 - **BREAKING:** Run `main` (not `safe`) after releasing.
 
 ## v0.14.0 (2024-12-31)
