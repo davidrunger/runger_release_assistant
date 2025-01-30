@@ -98,7 +98,7 @@ class RungerReleaseAssistant
     ERROR_LOG
     restore_and_abort(exit_code: 1)
   else
-    run_safe_command
+    run_main_command
     switch_to_initial_branch
   end
 
@@ -228,9 +228,9 @@ class RungerReleaseAssistant
     execute_command('bundle exec rake release', show_system_output: true)
   end
 
-  def run_safe_command
-    if system('which safe')
-      execute_command('safe', clear_bundler_context: true)
+  def run_main_command
+    if system('which main')
+      execute_command('main', clear_bundler_context: true)
     end
   end
 

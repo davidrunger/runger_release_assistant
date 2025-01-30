@@ -32,8 +32,8 @@ versions via git/GitHub and (optionally) via RubyGems.
 
 This gem is somewhat customized and built specifically for my (David Runger's)
 custom and idiosyncratic workflow. For example, after releasing, this gem will
-automatically execute a `safe` command, if one is present on the machine. You
-might not want this behavior (if you have a `safe` command that you _don't_ want
+automatically execute a `main` command, if one is present on the machine. You
+might not want this behavior (if you have a `main` command that you _don't_ want
 to be invoked after a release).
 
 Realistically speaking, though, this gem actually probably could be used by
