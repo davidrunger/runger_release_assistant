@@ -1,4 +1,4 @@
-## Unreleased
+## v2.0.0 (2025-02-05)
 - **BREAKING:** Source post-release command from `~/code/dotfiles` [`runger-config`](https://github.com/davidrunger/dotfiles/blob/cd02495fb2ad742cc1e85cc65aea5ff711485981/crystal-programs/runger-config.cr), rather than always running `main` command (if available).
 
 ## v1.0.0 (2025-01-29)
