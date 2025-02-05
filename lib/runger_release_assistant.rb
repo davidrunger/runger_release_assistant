@@ -96,7 +96,7 @@ class RungerReleaseAssistant
     ERROR_LOG
     restore_and_abort(exit_code: 1)
   else
-    run_main_command
+    run_post_release_command
   end
 
   private
@@ -217,9 +217,13 @@ class RungerReleaseAssistant
     execute_command('bundle exec rake release', show_system_output: true)
   end
 
-  def run_main_command
-    if system('which main')
-      execute_command('main', clear_bundler_context: true)
+  def run_post_release_command
+    post_release_command_query_command =
+      'runger-config --directory ~/code/dotfiles post-release-command'
+
+    if system("#{post_release_command_query_command} --silent")
+      post_release_command = `#{post_release_command_query_command}`.rstrip
+      execute_command(post_release_command, clear_bundler_context: true)
     end
   end
 
