@@ -5,11 +5,8 @@
 This is a CLI tool that I (David Runger) use to automate the release of new gem
 versions via git/GitHub and (optionally) via RubyGems.
 
-**I do not recommend this gem for general use.**
-
 <!--ts-->
 * [runger_release_assistant](#runger_release_assistant)
-   * [Not recommended for general use!](#not-recommended-for-general-use)
    * [Dependencies](#dependencies)
    * [Installation](#installation)
       * [Global installation](#global-installation)
@@ -18,29 +15,16 @@ versions via git/GitHub and (optionally) via RubyGems.
    * [Basic usage](#basic-usage)
       * [Available options and examples](#available-options-and-examples)
    * [Config](#config)
+   * [Post-release command](#post-release-command)
    * [Using with RubyGems](#using-with-rubygems)
    * [Development](#development)
    * [Contributing](#contributing)
    * [License](#license)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
-<!-- Added by: david, at: Tue Jul 23 12:46:01 AM CDT 2024 -->
+<!-- Added by: david, at: Wed Feb  5 04:11:40 AM CST 2025 -->
 
 <!--te-->
-
-## Not recommended for general use!
-
-This gem is somewhat customized and built specifically for my (David Runger's)
-custom and idiosyncratic workflow. For example, after releasing, this gem will
-automatically execute a `main` command, if one is present on the machine. You
-might not want this behavior (if you have a `main` command that you _don't_ want
-to be invoked after a release).
-
-Realistically speaking, though, this gem actually probably could be used by
-anyone, since most of this gem's functionality actually is built in a
-generalized way that I think won't conflict with most other people's workflows,
-but, still, I'm guessing that there are other, better tools available, anyway,
-and, so, on net, I just wouldn't recommend that others use this gem.
 
 ## Dependencies
 
@@ -141,6 +125,10 @@ automatically detect as the "primary branch" any one of the following: `main`,
 `master`, or `trunk`. So, if one of those is the name of your primary branch,
 and if you also want `git: true` and `rubygems: false`, then you don't need to
 create a config file.
+
+## Post-release command
+
+If you specify a `post-release-command` in your `~/code/dotfiles` [`runger-config`](https://github.com/davidrunger/dotfiles/blob/cd02495fb2ad742cc1e85cc65aea5ff711485981/crystal-programs/runger-config.cr), then `runger_release_assistant` will execute that command after a successful release.
 
 ## Using with RubyGems
 
