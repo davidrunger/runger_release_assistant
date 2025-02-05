@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-Bundler.require(:test)
-require_relative '../lib/runger_release_assistant.rb'
+Bundler.require(:default, :test)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
