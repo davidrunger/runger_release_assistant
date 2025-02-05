@@ -128,11 +128,9 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
-  irb
   pry
   pry-byebug!
   rake
-  reline
   rspec
   rubocop
   rubocop-performance
