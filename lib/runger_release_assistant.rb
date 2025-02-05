@@ -75,8 +75,6 @@ class RungerReleaseAssistant
     print_release_info
     confirm_release_looks_good
     verify_repository_cleanliness
-    remember_initial_branch
-    switch_to_main
 
     update_changelog_for_release
     update_version_file(next_version)
@@ -99,7 +97,6 @@ class RungerReleaseAssistant
     restore_and_abort(exit_code: 1)
   else
     run_main_command
-    switch_to_initial_branch
   end
 
   private
@@ -147,16 +144,8 @@ class RungerReleaseAssistant
     fail 'There are staged changes!' if !system('git diff-index --quiet --cached HEAD')
   end
 
-  def remember_initial_branch
-    @initial_branch = current_branch
-  end
-
   def current_branch
     system_output('git branch --show-current')
-  end
-
-  def switch_to_main
-    execute_command("git checkout #{primary_branch}")
   end
 
   memo_wise \
@@ -234,10 +223,6 @@ class RungerReleaseAssistant
     end
   end
 
-  def switch_to_initial_branch
-    execute_command("git checkout #{@initial_branch}") if @initial_branch
-  end
-
   def system_output(command)
     `#{command}`.rstrip
   end
@@ -280,7 +265,6 @@ class RungerReleaseAssistant
       execute_command("git checkout Gemfile.lock #{changelog_path} #{version_file_path}")
     end
 
-    switch_to_initial_branch
     exit(exit_code)
   end
 
