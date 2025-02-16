@@ -7,7 +7,7 @@ class RungerReleaseAssistant::VersionCalculator
     @current_version = current_version
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def increment_for(type)
     new_parts =
       case type
@@ -38,7 +38,7 @@ class RungerReleaseAssistant::VersionCalculator
       end
     new_parts.map(&:to_s).join('.')
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 
