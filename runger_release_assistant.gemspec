@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency('activesupport', '>= 6')
   spec.add_dependency('memo_wise', '>= 1.7')
   spec.add_dependency('rainbow', '>= 3.0')
+  spec.add_dependency('rake', '>= 13.2.1')
   spec.add_dependency('slop', '~> 4.8')
 
   required_ruby_version = File.read('.ruby-version').rstrip.sub(/\A(\d+\.\d+)\.\d+\z/, '\1.0')
