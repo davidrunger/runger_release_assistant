@@ -1,3 +1,6 @@
+## Unreleased
+[no unreleased changes yet]
+
 ## v2.0.1 (2025-03-19)
 - Add `rake` as a dependency.
 
