@@ -1,4 +1,7 @@
 ## Unreleased
+[no unreleased changes yet]
+
+## v4.2.1 (2025-03-20)
 ### Docs
 - [README] Update table of contents.
 
