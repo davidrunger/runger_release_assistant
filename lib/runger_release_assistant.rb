@@ -102,7 +102,7 @@ class RungerReleaseAssistant
 
   def print_release_info
     logger.info("You are running the release process with options #{@options.to_h}.")
-    logger.info("Current released version is #{current_released_version.blue}.")
+    logger.info("Current released version is #{(current_released_version || '[none]').blue}.")
     logger.info("Next version will be #{next_version.green}.")
 
     print_changelog_content_of_upcoming_release
