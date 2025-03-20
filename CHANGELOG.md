@@ -1,4 +1,7 @@
 ## Unreleased
+[no unreleased changes yet]
+
+## v4.1.1 (2025-03-20)
 ### Fixed
 - Fix `NoMethodError` trying to print `nil` in blue if there is no latest tag.
 
