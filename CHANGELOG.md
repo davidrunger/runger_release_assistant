@@ -1,5 +1,6 @@
 ## Unreleased
-[no unreleased changes yet]
+### Fixed
+- Fix `NoMethodError` trying to print `nil` in blue if there is no latest tag.
 
 ## v4.1.0 (2025-03-20)
 - Support optional tag prefix (via a `tag_prefix` in `.release_assistant.yml`).
