@@ -81,12 +81,7 @@ class RungerReleaseAssistant
     bundle_install
     commit_changes(message: "Prepare to release v#{next_version}")
     create_tag
-
-    if @options[:rubygems] && @options[:git]
-      push_to_rubygems_and_git
-    elsif @options[:git]
-      push_to_git
-    end
+    push_to_rubygems_and_or_git
   rescue => error
     logger.error(<<~ERROR_LOG)
       \n
@@ -199,13 +194,23 @@ class RungerReleaseAssistant
     "v#{version}"
   end
 
+  def push_to_rubygems_and_or_git
+    if @options[:rubygems]
+      push_to_rubygems
+    end
+
+    if @options[:git]
+      push_to_git
+    end
+  end
+
   def push_to_git
     logger.debug('Pushing to git remote')
     execute_command('git push')
     execute_command('git push --tags')
   end
 
-  def push_to_rubygems_and_git
+  def push_to_rubygems
     logger.debug('Pushing to RubyGems and git')
     # Always show system output because 2FA should be enabled, which requires user to see the prompt
     execute_command('bundle exec rake release', show_system_output: true)
