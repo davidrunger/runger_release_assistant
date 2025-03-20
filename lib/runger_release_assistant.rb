@@ -82,12 +82,6 @@ class RungerReleaseAssistant
     commit_changes(message: "Prepare to release v#{next_version}")
     create_tag
     push_to_rubygems_and_git if @options[:rubygems] && @options[:git]
-
-    update_changelog_for_alpha
-    update_version_file(alpha_version_after_next_version)
-    bundle_install
-    commit_changes(message: "Bump to v#{alpha_version_after_next_version}")
-    push_to_git if @options[:git]
   rescue => error
     logger.error(<<~ERROR_LOG)
       \n
@@ -116,7 +110,6 @@ class RungerReleaseAssistant
   def print_release_info
     logger.info("You are running the release process with options #{@options.to_h}.")
     logger.info("Current released version is #{current_released_version.blue}.")
-    logger.info("Current alpha version is #{current_version.yellow}.")
     logger.info("Next version will be #{next_version.green}.")
 
     print_changelog_content_of_upcoming_release
@@ -168,16 +161,12 @@ class RungerReleaseAssistant
           /(#+) Unreleased/,
           "\\1 v#{next_version} (#{Date.current.iso8601})",
         )
-    write_file(changelog_path, new_changelog_content)
-  end
 
-  def update_changelog_for_alpha
-    old_changelog_content = file_contents(changelog_path)
     write_file(changelog_path, <<~NEW_CHANGELOG_CONTENT)
       ## Unreleased
       [no unreleased changes yet]
 
-      #{old_changelog_content.rstrip}
+      #{new_changelog_content.rstrip}
     NEW_CHANGELOG_CONTENT
   end
 
@@ -326,14 +315,6 @@ class RungerReleaseAssistant
   memo_wise \
   def next_version
     version_calculator.increment_for(@options[:type])
-  end
-
-  def alpha_version_after_next_version
-    next_patch_version =
-      RungerReleaseAssistant::VersionCalculator.new(
-        current_version: next_version,
-      ).increment_for('patch')
-    "#{next_patch_version}.alpha"
   end
 
   memo_wise \
