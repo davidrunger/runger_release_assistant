@@ -180,11 +180,11 @@ class RungerReleaseAssistant
   end
 
   def create_tag
-    execute_command(%(git tag -a '#{git_tag_version(next_version)}' -m 'Version #{next_version}'))
+    execute_command(%(git tag -a '#{git_tag(next_version)}' -m 'Version #{next_version}'))
   end
 
-  def git_tag_version(version)
-    "v#{version}"
+  def git_tag(version)
+    "#{@options[:tag_prefix]}v#{version}"
   end
 
   def push_to_rubygems_and_or_git
@@ -275,7 +275,7 @@ class RungerReleaseAssistant
       { 'DELTA_PAGER' => 'cat' },
       'git',
       'diff',
-      "#{git_tag_version(current_released_version)}...",
+      "#{latest_tag}...",
     )
   end
 
@@ -302,8 +302,13 @@ class RungerReleaseAssistant
   end
 
   memo_wise \
+  def latest_tag
+    `git tag -l 'v[0-9]*.[0-9]*.[0-9]*' | sort -V | tail -1`.rstrip
+  end
+
+  memo_wise \
   def current_released_version
-    `git tag -l 'v[0-9]*.[0-9]*.[0-9]*' | sort -V | tail -1`.delete_prefix('v').rstrip
+    latest_tag.match(/v(\d.*)$/)&.[](1)
   end
 
   memo_wise \

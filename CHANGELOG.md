@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Support optional tag prefix (via a `tag_prefix` in `.release_assistant.yml`).
 
 ## v4.0.0 (2025-03-20)
 - **BREAKING:** Always push to git, rather than requiring `git: true` to be specified in the config (or respecting at all a `git` option in the config).
