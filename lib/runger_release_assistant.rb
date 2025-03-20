@@ -116,12 +116,12 @@ class RungerReleaseAssistant
     logger.info(<<~INFO.squish)
       Current released version is
       #{(current_released_version || '[none]').blue}
-      (tag: #{latest_tag}).
+      (tag: #{latest_tag.yellow}).
     INFO
 
     logger.info(<<~INFO.squish)
       Next version will be #{next_version.green}
-      (tag: #{next_git_tag}).
+      (tag: #{next_git_tag.yellow}).
     INFO
 
     print_changelog_content_of_upcoming_release
