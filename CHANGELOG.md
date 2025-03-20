@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Put tag name before tag message in git command.
 
 ## v3.0.1 (2025-03-20)
 - Actually push to git even if RubyGems is also enabled.
