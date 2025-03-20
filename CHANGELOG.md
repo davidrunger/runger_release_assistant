@@ -2,7 +2,7 @@
 [no unreleased changes yet]
 
 ## v3.0.1 (2025-03-20)
-[no unreleased changes yet]
+- Actually push to git even if RubyGems is also enabled.
 
 ## v3.0.0 (2025-03-20)
 - Stop creating a new alpha version after release.
