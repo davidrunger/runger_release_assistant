@@ -187,7 +187,7 @@ class RungerReleaseAssistant
   end
 
   def create_tag
-    execute_command(%(git tag -m 'Version #{next_version}' '#{git_tag_version(next_version)}'))
+    execute_command(%(git tag '#{git_tag_version(next_version)}' -m 'Version #{next_version}'))
   end
 
   def git_tag_version(version)
