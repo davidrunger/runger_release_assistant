@@ -42,10 +42,4 @@ slop_options =
     end
   end
 
-config_file_options = RungerReleaseAssistant::ConfigFileReader.new.options_hash
-
-RungerReleaseAssistant.new(
-  RungerReleaseAssistant::DEFAULT_OPTIONS.
-    merge(config_file_options).
-    merge(slop_options.to_h),
-).run_release
+RungerReleaseAssistant.new(slop_options.to_h).run_release
