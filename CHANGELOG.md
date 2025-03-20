@@ -1,4 +1,7 @@
 ## Unreleased
+[no unreleased changes yet]
+
+## v3.2.0 (2025-03-20)
 - Add `-a` flag to `git tag` command to be clear that the tag is annotated.
 
 ## v3.1.0 (2025-03-20)
