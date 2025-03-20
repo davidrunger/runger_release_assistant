@@ -1,4 +1,7 @@
 ## Unreleased
+[no unreleased changes yet]
+
+## v4.0.0 (2025-03-20)
 - **BREAKING:** Always push to git, rather than requiring `git: true` to be specified in the config (or respecting at all a `git` option in the config).
 
 ## v3.2.0 (2025-03-20)
