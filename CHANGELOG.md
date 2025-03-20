@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Add `-a` flag to `git tag` command to be clear that the tag is annotated.
 
 ## v3.1.0 (2025-03-20)
 - Put tag name before tag message in git command.
