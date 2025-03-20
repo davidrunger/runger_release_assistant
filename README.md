@@ -132,6 +132,16 @@ you'd also like to release the gem via RubyGems, then create a `.release_assista
 executing `release --init`. Within that file, modify the default `rubygems: false` option to
 `rubygems: true`.
 
+## Tag prefix
+
+By default, Git tags are created like `v1.0.0`. If you would like to prefix the git tag with any additional content, you may specify a `tag_prefix` in `.release_assistant.yml`, such as:
+
+```yml
+tag_prefix: gem/
+```
+
+This example would generate tags in the form `gem/v1.0.0`.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run
