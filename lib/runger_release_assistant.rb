@@ -53,7 +53,7 @@ class RungerReleaseAssistant
     end
   end
 
-  def initialize(cli_options = {}) # rubocop:disable Style/OptionHash
+  def initialize(cli_options = {})
     config_file_options = RungerReleaseAssistant::ConfigFileReader.new.options_hash
 
     @options =
