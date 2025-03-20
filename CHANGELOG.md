@@ -1,4 +1,7 @@
 ## Unreleased
+[no unreleased changes yet]
+
+## v4.1.0 (2025-03-20)
 - Support optional tag prefix (via a `tag_prefix` in `.release_assistant.yml`).
 
 ## v4.0.0 (2025-03-20)
