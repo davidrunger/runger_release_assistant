@@ -1,4 +1,7 @@
 ## Unreleased
+[no unreleased changes yet]
+
+## v4.2.0 (2025-03-20)
 - Fix README typo (most -> must).
 - Look for latest tag using tag prefix.
 - Print git tag names in yellow in pre-release info.
