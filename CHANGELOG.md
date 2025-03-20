@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Fix README typo (most -> must).
 
 ## v4.1.1 (2025-03-20)
 ### Fixed

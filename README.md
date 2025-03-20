@@ -140,7 +140,7 @@ By default, Git tags are created like `v1.0.0`. If you would like to prefix the 
 tag_prefix: gem/
 ```
 
-You most also provide this to bundler by putting something like the following in your `Rakefile`:
+You must also provide this to bundler by putting something like the following in your `Rakefile`:
 
 ```rb
 require 'bundler/gem_tasks'
