@@ -1,6 +1,7 @@
 ## Unreleased
 - Fix README typo (most -> must).
 - Look for latest tag using tag prefix.
+- Print git tag names in yellow in pre-release info.
 
 ### Docs
 - Add info about telling bundler about a tag prefix.
