@@ -1,5 +1,5 @@
 ## Unreleased
-- Always push to git, rather than requiring `git: true` to be specified in the config (or respecting at all a `git` option in the config).
+- **BREAKING:** Always push to git, rather than requiring `git: true` to be specified in the config (or respecting at all a `git` option in the config).
 
 ## v3.2.0 (2025-03-20)
 - Add `-a` flag to `git tag` command to be clear that the tag is annotated.
@@ -11,7 +11,7 @@
 - Actually push to git even if RubyGems is also enabled.
 
 ## v3.0.0 (2025-03-20)
-- Stop creating a new alpha version after release.
+- **BREAKING:** Stop creating a new alpha version after release.
 - Push to git even if pushing to RubyGems is not enabled.
 
 ## v2.0.1 (2025-03-19)
