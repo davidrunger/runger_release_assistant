@@ -1,5 +1,6 @@
 ## Unreleased
-[no unreleased changes yet]
+### Docs
+- [README] Update table of contents.
 
 ## v4.2.0 (2025-03-20)
 - Fix README typo (most -> must).
