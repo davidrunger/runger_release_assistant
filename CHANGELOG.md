@@ -1,5 +1,9 @@
 ## Unreleased
 - Fix README typo (most -> must).
+- Look for latest tag using tag prefix.
+
+### Docs
+- Add info about telling bundler about a tag prefix.
 
 ## v4.1.1 (2025-03-20)
 ### Fixed
