@@ -53,8 +53,14 @@ class RungerReleaseAssistant
     end
   end
 
-  def initialize(options = {}) # rubocop:disable Style/OptionHash
-    @options = options
+  def initialize(cli_options = {}) # rubocop:disable Style/OptionHash
+    config_file_options = RungerReleaseAssistant::ConfigFileReader.new.options_hash
+
+    @options =
+      DEFAULT_OPTIONS.
+        merge(config_file_options).
+        merge(cli_options)
+
     logger.debug("Running release with options #{@options}")
   end
 
@@ -92,6 +98,10 @@ class RungerReleaseAssistant
     run_post_release_command
   end
 
+  def tag_prefix
+    @options[:tag_prefix]
+  end
+
   private
 
   def ensure_on_main_branch
@@ -102,8 +112,17 @@ class RungerReleaseAssistant
 
   def print_release_info
     logger.info("You are running the release process with options #{@options.to_h}.")
-    logger.info("Current released version is #{(current_released_version || '[none]').blue}.")
-    logger.info("Next version will be #{next_version.green}.")
+
+    logger.info(<<~INFO.squish)
+      Current released version is
+      #{(current_released_version || '[none]').blue}
+      (tag: #{latest_tag}).
+    INFO
+
+    logger.info(<<~INFO.squish)
+      Next version will be #{next_version.green}
+      (tag: #{next_git_tag}).
+    INFO
 
     print_changelog_content_of_upcoming_release
 
@@ -180,11 +199,16 @@ class RungerReleaseAssistant
   end
 
   def create_tag
-    execute_command(%(git tag -a '#{git_tag(next_version)}' -m 'Version #{next_version}'))
+    execute_command(%(git tag -a '#{next_git_tag}' -m 'Version #{next_version}'))
+  end
+
+  memo_wise \
+  def next_git_tag
+    git_tag(next_version)
   end
 
   def git_tag(version)
-    "#{@options[:tag_prefix]}v#{version}"
+    "#{tag_prefix}v#{version}"
   end
 
   def push_to_rubygems_and_or_git
@@ -251,8 +275,8 @@ class RungerReleaseAssistant
       execute_command("git reset --hard origin/#{primary_branch}")
     end
 
-    if execute_command("git rev-parse v#{next_version}", raise_error: false)
-      execute_command("git tag -d v#{next_version}")
+    if execute_command("git rev-parse #{next_git_tag}", raise_error: false)
+      execute_command("git tag -d #{next_git_tag}")
     end
 
     if !execute_command('git diff --exit-code', raise_error: false)
