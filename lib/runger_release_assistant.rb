@@ -81,7 +81,12 @@ class RungerReleaseAssistant
     bundle_install
     commit_changes(message: "Prepare to release v#{next_version}")
     create_tag
-    push_to_rubygems_and_git if @options[:rubygems] && @options[:git]
+
+    if @options[:rubygems] && @options[:git]
+      push_to_rubygems_and_git
+    elsif @options[:git]
+      push_to_git
+    end
   rescue => error
     logger.error(<<~ERROR_LOG)
       \n
