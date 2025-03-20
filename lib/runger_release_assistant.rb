@@ -327,7 +327,7 @@ class RungerReleaseAssistant
 
   memo_wise \
   def latest_tag
-    `git tag -l 'v[0-9]*.[0-9]*.[0-9]*' | sort -V | tail -1`.rstrip
+    `git tag -l '#{tag_prefix}v[0-9]*.[0-9]*.[0-9]*' | sort -V | tail -1`.rstrip
   end
 
   memo_wise \
