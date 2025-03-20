@@ -43,7 +43,7 @@ class RungerReleaseAssistant
     end
   end
 
-  DEFAULT_OPTIONS = { git: true, rubygems: false }.freeze
+  DEFAULT_OPTIONS = { rubygems: false }.freeze
 
   class << self
     def define_slop_options(options)
@@ -53,9 +53,8 @@ class RungerReleaseAssistant
     end
   end
 
-  def initialize(options)
+  def initialize(options = {}) # rubocop:disable Style/OptionHash
     @options = options
-    validate_options!
     logger.debug("Running release with options #{@options}")
   end
 
@@ -94,12 +93,6 @@ class RungerReleaseAssistant
   end
 
   private
-
-  def validate_options!
-    if @options[:git] != true
-      fail('The `git` configuration option must be `true`')
-    end
-  end
 
   def ensure_on_main_branch
     if current_branch != primary_branch
@@ -199,21 +192,19 @@ class RungerReleaseAssistant
       push_to_rubygems
     end
 
-    if @options[:git]
-      push_to_git
-    end
-  end
-
-  def push_to_git
-    logger.debug('Pushing to git remote')
-    execute_command('git push')
-    execute_command('git push --tags')
+    push_to_git
   end
 
   def push_to_rubygems
     logger.debug('Pushing to RubyGems and git')
     # Always show system output because 2FA should be enabled, which requires user to see the prompt
     execute_command('bundle exec rake release', show_system_output: true)
+  end
+
+  def push_to_git
+    logger.debug('Pushing to git remote')
+    execute_command('git push')
+    execute_command('git push --tags')
   end
 
   def run_post_release_command

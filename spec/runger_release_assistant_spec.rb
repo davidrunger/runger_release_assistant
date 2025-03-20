@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RungerReleaseAssistant do
-  subject(:runger_release_assistant) { RungerReleaseAssistant.new(options) }
-
-  let(:options) { { git: true } }
+  subject(:runger_release_assistant) { RungerReleaseAssistant.new }
 
   describe '#primary_branch' do
     subject(:primary_branch) { runger_release_assistant.send(:primary_branch) }

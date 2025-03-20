@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Always push to git, rather than requiring `git: true` to be specified in the config (or respecting at all a `git` option in the config).
 
 ## v3.2.0 (2025-03-20)
 - Add `-a` flag to `git tag` command to be clear that the tag is annotated.
