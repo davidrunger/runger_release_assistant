@@ -17,12 +17,13 @@ versions via git/GitHub and (optionally) via RubyGems.
    * [Config](#config)
    * [Post-release command](#post-release-command)
    * [Using with RubyGems](#using-with-rubygems)
+   * [Tag prefix](#tag-prefix)
    * [Development](#development)
    * [Contributing](#contributing)
    * [License](#license)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
-<!-- Added by: david, at: Wed Feb  5 04:11:40 AM CST 2025 -->
+<!-- Added by: david, at: Thu Mar 20 02:14:42 PM CDT 2025 -->
 
 <!--te-->
 
