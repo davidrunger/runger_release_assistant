@@ -1,4 +1,7 @@
 ## Unreleased
+[no unreleased changes yet]
+
+## v3.0.0 (2025-03-20)
 - Stop creating a new alpha version after release.
 - Push to git even if pushing to RubyGems is not enabled.
 
