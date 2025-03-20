@@ -1,5 +1,6 @@
 ## Unreleased
 - Stop creating a new alpha version after release.
+- Push to git even if pushing to RubyGems is not enabled.
 
 ## v2.0.1 (2025-03-19)
 - Add `rake` as a dependency.
