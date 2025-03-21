@@ -1,6 +1,9 @@
 ## Unreleased
 [no unreleased changes yet]
 
+## v4.3.1 (2025-03-20)
+[no unreleased changes yet]
+
 ## v4.3.0 (2025-03-20)
 - Only use the RubyGems bundler release rake sub-tasks needed to push to RubyGems.
 
