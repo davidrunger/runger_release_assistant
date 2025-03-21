@@ -221,8 +221,11 @@ class RungerReleaseAssistant
 
   def push_to_rubygems
     logger.debug('Pushing to RubyGems and git')
-    # Always show system output because 2FA should be enabled, which requires user to see the prompt
-    execute_command('bundle exec rake release', show_system_output: true)
+    # Show system output because 2FA should be enabled, which requires the user to see the prompt.
+    execute_command(
+      'bundle exec rake build release:guard_clean release:rubygem_push',
+      show_system_output: true,
+    )
   end
 
   def push_to_git
