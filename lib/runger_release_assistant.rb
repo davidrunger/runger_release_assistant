@@ -43,6 +43,7 @@ class RungerReleaseAssistant
     end
   end
 
+  CHANGELOG_FILE_NAME = 'CHANGELOG.md'
   DEFAULT_OPTIONS = { rubygems: false }.freeze
 
   class << self
@@ -76,10 +77,12 @@ class RungerReleaseAssistant
   end
 
   def run_release
-    ensure_on_main_branch
+    verify_on_main_branch
+    verify_repository_cleanliness
+    verify_changelog_present
+
     print_release_info
     confirm_release_looks_good
-    verify_repository_cleanliness
 
     update_changelog_for_release
     update_version_file(next_version)
@@ -104,9 +107,15 @@ class RungerReleaseAssistant
 
   private
 
-  def ensure_on_main_branch
+  def verify_on_main_branch
     if current_branch != primary_branch
       fail('You must be on the primary branch to release!')
+    end
+  end
+
+  def verify_changelog_present
+    if !File.exist?(changelog_path)
+      fail("You must have a changelog at #{changelog_path} .")
     end
   end
 
@@ -145,8 +154,16 @@ class RungerReleaseAssistant
   end
 
   def verify_repository_cleanliness
-    fail 'There are unstaged changes!' if !system('git diff --exit-code')
-    fail 'There are staged changes!' if !system('git diff-index --quiet --cached HEAD')
+    if git_is_clean?
+      @git_was_clean_initially = true
+    else
+      fail 'There are uncommitted changes!'
+    end
+  end
+
+  memo_wise \
+  def git_is_clean?
+    !system('test -n "$(git status --porcelain)"')
   end
 
   def current_branch
@@ -194,7 +211,7 @@ class RungerReleaseAssistant
   end
 
   def commit_changes(message:)
-    execute_command("git add CHANGELOG.md Gemfile.lock #{version_file_path}")
+    execute_command("git add #{CHANGELOG_FILE_NAME} Gemfile.lock #{version_file_path}")
     execute_command("git commit -m '#{message}'")
   end
 
@@ -274,7 +291,7 @@ class RungerReleaseAssistant
   end
 
   def restore_and_abort(exit_code:)
-    if current_branch == primary_branch
+    if (current_branch == primary_branch) && @git_was_clean_initially
       execute_command("git reset --hard origin/#{primary_branch}")
     end
 
@@ -325,7 +342,7 @@ class RungerReleaseAssistant
 
   memo_wise \
   def changelog_path
-    file_path('CHANGELOG.md')
+    CHANGELOG_FILE_NAME
   end
 
   memo_wise \
