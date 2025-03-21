@@ -141,17 +141,9 @@ By default, Git tags are created like `v1.0.0`. If you would like to prefix the 
 tag_prefix: gem/
 ```
 
-You must also provide this to bundler by putting something like the following in your `Rakefile`:
-
-```rb
-require 'bundler/gem_tasks'
-require 'runger_release_assistant'
-Bundler::GemHelper.tag_prefix = RungerReleaseAssistant.new.tag_prefix
-```
-
 This example would generate tags in the form `gem/v1.0.0`.
 
-Note that all version numbers in git tags will be prefixed with at least a `v`. The `tag_prefix` option is to specify an additional prefix, in addition to the `v`.
+Note that all version numbers in git tags will be prefixed with at least a `v`. The `tag_prefix` option is to specify another prefix, in addition to the `v`.
 
 ## Development
 

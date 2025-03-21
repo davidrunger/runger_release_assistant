@@ -1,5 +1,5 @@
 ## Unreleased
-[no unreleased changes yet]
+- Only use the RubyGems bundler release rake sub-tasks needed to push to RubyGems.
 
 ## v4.2.1 (2025-03-20)
 ### Docs
