@@ -47,7 +47,7 @@ class RungerReleaseAssistant::VersionCalculator
 
   memo_wise \
   def parts
-    @current_version.split('.').first(3).map { Integer(_1) }
+    @current_version.split('.').first(3).map { Integer(it) }
   end
 
   memo_wise \

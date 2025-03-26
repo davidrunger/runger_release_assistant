@@ -275,7 +275,7 @@ class RungerReleaseAssistant
 
     env =
       if clear_bundler_context
-        ENV.keys.grep(/\A(BUNDLE|RUBY)/).to_h { [_1, nil] }
+        ENV.keys.grep(/\A(BUNDLE|RUBY)/).to_h { [it, nil] }
       else
         {}
       end
@@ -310,7 +310,7 @@ class RungerReleaseAssistant
     logger.info('Changelog content for this upcoming release:')
     File.read(changelog_path)[/\A## Unreleased\n(?:(?!\n## ).)+/m].
       pipe('bat --color always --language markdown --style grid,numbers').
-      then { puts(_1) }
+      then { puts(it) }
   end
 
   def print_diff_since_last_release
