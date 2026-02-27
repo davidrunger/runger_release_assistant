@@ -35,7 +35,7 @@ class RungerReleaseAssistant::VersionCalculator
           [major, minor, patch + 1]
         end
       end
-    new_parts.map(&:to_s).join('.')
+    new_parts.join('.')
   end
 
   private
