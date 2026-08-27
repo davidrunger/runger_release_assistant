@@ -157,7 +157,7 @@ class RungerReleaseAssistant
     if git_is_clean?
       @git_was_clean_initially = true
     else
-      fail 'There are uncommitted changes!'
+      fail('There are uncommitted changes!')
     end
   end
 
