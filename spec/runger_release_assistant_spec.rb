@@ -9,12 +9,11 @@ RSpec.describe RungerReleaseAssistant do
     context 'when a primary_branch option is not specified' do
       context 'when `git branch` is stubbed' do
         before do
-          # rubocop:disable RSpec/AnyInstance
+          # rubocop:disable-next RSpec/AnyInstance
           expect_any_instance_of(Kernel).
             to receive(:`).
             with('git branch').
             and_return(git_branch_output)
-          # rubocop:enable RSpec/AnyInstance
         end
 
         context "when there is a branch called 'main'" do
