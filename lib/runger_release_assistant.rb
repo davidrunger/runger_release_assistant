@@ -23,10 +23,9 @@ using Rainbow
 using StringWithPipe
 
 # We need to define the class before requiring the modules.
-# rubocop:disable Lint/EmptyClass
+# rubocop:disable-next Lint/EmptyClass
 class RungerReleaseAssistant
 end
-# rubocop:enable Lint/EmptyClass
 
 Dir["#{File.dirname(__FILE__)}/runger_release_assistant/**/*.rb"].each { |file| require file }
 
