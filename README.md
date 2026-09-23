@@ -129,7 +129,6 @@ You can create a configuration file with `release --init`.
 Here is an example:
 
 ```yml
----
 rubygems: false
 primary_branch: main
 ```

@@ -25,7 +25,7 @@ slop_options =
     o.on('-i', '--init', 'create a `.release_assistant.yml` config file') do
       File.write(
         '.release_assistant.yml',
-        YAML.dump(RungerReleaseAssistant::DEFAULT_OPTIONS.stringify_keys),
+        YAML.dump(RungerReleaseAssistant::DEFAULT_OPTIONS.stringify_keys).delete_prefix("---\n"),
       )
       puts("Created #{'.release_assistant.yml'.green.bold}!")
       exit
