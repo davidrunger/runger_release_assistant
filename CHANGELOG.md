@@ -1,4 +1,7 @@
 ## Unreleased
+[no unreleased changes yet]
+
+## v4.4.1 (2026-09-23)
 - [README] Document requirements for RubyGems release.
 
 ## v4.4.0 (2026-09-23)
