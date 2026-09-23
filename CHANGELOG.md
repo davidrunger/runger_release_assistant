@@ -2,6 +2,9 @@
 ### Docs
 - [README] Document required changelog format.
 
+### CLI
+- [--init] Don't include a document start marker in default YAML.
+
 ## v4.3.1 (2025-03-20)
 [no unreleased changes yet]
 
