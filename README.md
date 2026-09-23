@@ -7,7 +7,8 @@ versions via git/GitHub and (optionally) via RubyGems.
 
 <!--ts-->
 * [runger_release_assistant](#runger_release_assistant)
-   * [Dependencies](#dependencies)
+   * [Dependencies / Requirements](#dependencies--requirements)
+      * [Releasing via RubyGems](#releasing-via-rubygems)
    * [Installation](#installation)
       * [Global installation](#global-installation)
       * [Installation in a specific project](#installation-in-a-specific-project)
@@ -24,13 +25,29 @@ versions via git/GitHub and (optionally) via RubyGems.
    * [License](#license)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
-<!-- Added by: david, at: Tue Aug 25 04:03:24 CDT 2026 -->
+<!-- Added by: david, at: Wed Sep 23 12:29:01 AM CDT 2026 -->
 
 <!--te-->
 
-## Dependencies
+## Dependencies / Requirements
 
 This gem assumes that you have `git` installed.
+
+### Releasing via RubyGems
+
+If you are going to release via RubyGems, then you will need to have `rake` as part of your bundle, e.g. by having the following in your `Gemfile`:
+
+```rb
+gem 'rake', require: false
+```
+
+Also, you will need to have a `Rakefile` that includes the following:
+
+```rb
+require 'bundler/gem_tasks'
+```
+
+Also, you will probably want to have `/pkg/` in your `.gitignore`, so that you don't track the built gem packages in Git.
 
 ## Installation
 
