@@ -1,4 +1,7 @@
 ## Unreleased
+[no unreleased changes yet]
+
+## v4.4.0 (2026-09-23)
 ### Docs
 - [README] Document required changelog format.
 
